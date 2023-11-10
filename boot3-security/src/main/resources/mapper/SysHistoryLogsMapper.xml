@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deeeelete.system.mapper.SysHistoryLogsMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.deeeelete.system.entity.SysHistoryLogs">
+        <id column="slog_id" property="slogId" />
+        <result column="slog_login_user_id" property="slogLoginUserId" />
+        <result column="slog_request_ip" property="slogRequestIp" />
+        <result column="slog_request_method" property="slogRequestMethod" />
+        <result column="slog_request_url" property="slogRequestUrl" />
+        <result column="slog_request_data" property="slogRequestData" />
+        <result column="slog_response_data" property="slogResponseData" />
+        <result column="slog_user_account" property="slogUserAccount" />
+        <result column="gmt_create" property="gmtCreate" />
+        <result column="gmt_modified" property="gmtModified" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        slog_id, slog_login_user_id, slog_request_ip, slog_request_method, slog_request_url, slog_request_data, slog_response_data, slog_user_account, gmt_create, gmt_modified
+    </sql>
+
+</mapper>

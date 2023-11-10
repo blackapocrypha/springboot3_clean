@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deeeelete.system.mapper.AclMenuRoleMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.deeeelete.system.entity.AclMenuRole">
+        <id column="acmr_id" property="acmrId"/>
+        <result column="acmr_menu_id" property="acmrMenuId"/>
+        <result column="acmr_role_id" property="acmrRoleId"/>
+        <result column="acmr_role_name" property="acmrRoleName"/>
+        <result column="acmr_role_code" property="acmrRoleCode"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        acmr_id
+        , acmr_menu_id, acmr_role_id, acmr_role_name, acmr_role_code
+    </sql>
+
+    <select id="selectAllUserMenuCodeByUserId" resultType="java.lang.String">
+
+        select acme_code
+        from acl_menu
+        where acl_menu.acme_id in (select DISTINCT acmr_menu_id
+                                   from acl_menu_role
+                                   where acl_menu_role.acmr_role_id in
+                                         (select acur_role_id from acl_user_role where acl_user_role.acur_user_id = #{id}))
+          and acl_menu.acme_id != 1 and acl_menu.acme_type = #{type}
+    </select>
+
+</mapper>
