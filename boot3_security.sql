@@ -11,7 +11,7 @@
  Target Server Version : 50736
  File Encoding         : 65001
 
- Date: 02/11/2023 14:52:00
+ Date: 10/11/2023 17:50:12
 */
 
 SET NAMES utf8mb4;
@@ -206,7 +206,7 @@ CREATE TABLE `acl_user`  (
 -- ----------------------------
 -- Records of acl_user
 -- ----------------------------
-INSERT INTO `acl_user` VALUES (1, 'admin', '96248395732e90f15d72f33f012d4da4348c37eb27978d41', '管理员', '管理员', '18173128326', '6852052314487274', '/upload/2023-09-11/image/vac092815Zo49.jpg', 1, 0, '2023-06-13 19:44:33', '2023-09-11 01:28:16');
+INSERT INTO `acl_user` VALUES (1, 'admin', 'e6c08ad5832df0845082f831d1d148f43882b7962dc75c4f', '管理员', '管理员', '18173128326', '6852052314487274', '/upload/2023-09-11/image/vac092815Zo49.jpg', 1, 0, '2023-06-13 19:44:33', '2023-11-10 09:49:38');
 INSERT INTO `acl_user` VALUES (2, 'admin2', '08845824563b975f0ba7337c710284405a0645743ae0fb05', '夏平', '兵部尚书', '13626466174', '8543707718005300', '/upload/2023-09-11/image/dgq092824vFLQ.jpg', 1, 0, '2023-06-13 19:44:36', '2023-09-11 01:28:25');
 INSERT INTO `acl_user` VALUES (3, 'admin3', '96248395732e90f15d72f33f012d4da4348c37eb27978d41', '护盾', '123', '123123123', '6852052314487274', '/upload/2023-09-11/image/1_deeeelete_1569373353092854W748.png', 2, 0, '2023-06-14 08:51:32', '2023-09-18 09:15:07');
 INSERT INTO `acl_user` VALUES (4, 'kubernate', '329b71611a43b2dd02114d9978cc76283a12c9213c44f193', '江益冉', '杜添池', '19797861629', '2714201987819349', '/default.png', 2, 0, '2023-06-14 16:41:25', '2023-09-11 02:21:57');
@@ -257,7 +257,7 @@ CREATE TABLE `sys_history_logs`  (
   `gmt_modified` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   `slog_client` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '端源',
   PRIMARY KEY (`slog_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '系统日志' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '系统日志' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_history_logs
@@ -266,6 +266,7 @@ INSERT INTO `sys_history_logs` VALUES (1, 1, '123.168.117.75', '新增接口', '
 INSERT INTO `sys_history_logs` VALUES (2, 1, '123.168.117.75', '新增接口', '/system/acl-path/insert', NULL, '{\"status\":\"20000\",\"success\":true}', 'admin', '2023-10-25 03:07:05', '2023-10-25 03:07:04', '后台管理端');
 INSERT INTO `sys_history_logs` VALUES (3, 1, '123.168.117.75', '根据角色更新对应的接口', '/system/acl-path-role/updatePathByRole', NULL, '{\"status\":\"20000\",\"success\":true}', 'admin', '2023-10-25 03:15:32', '2023-10-25 03:15:32', '后台管理端');
 INSERT INTO `sys_history_logs` VALUES (4, 1, '123.168.117.75', '插入菜单', '/system/acl-menu/insert', NULL, '{\"status\":\"20000\",\"success\":true}', 'admin', '2023-11-02 03:42:41', '2023-11-02 03:42:40', '后台管理端');
-INSERT INTO `sys_history_logs` VALUES (5, 1, '123.168.117.75', '修改菜单角色对应关系', '/system/acl-menu-role/update', NULL, '{\"status\":\"20000\",\"success\":true}', 'admin', '2023-11-02 03:55:53', '2023-11-02 03:55:52', '后台管理端');
+INSERT INTO `sys_history_logs` VALUES (5, 1, '123.168.117.75', '修改菜单角色对应关系', '/system/acl-menu-role/update', NULL, '{\"status\":\"20000\",\"success\":true}', 'admin', '2023-11-02 08:55:53', '2023-11-02 06:59:12', '后台管理端');
+INSERT INTO `sys_history_logs` VALUES (6, 1, '123.168.93.150', '更新用户', '/system/acl-user/update', NULL, '{\"status\":\"20000\",\"success\":true}', 'admin', '2023-11-10 17:49:38', '2023-11-10 09:49:38', '后台管理端');
 
 SET FOREIGN_KEY_CHECKS = 1;
