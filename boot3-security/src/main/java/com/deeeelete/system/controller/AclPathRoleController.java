@@ -45,7 +45,7 @@ public class AclPathRoleController {
      * @return JsonResult
      */
     @PostMapping(value = "/selectPathByRoleId")
-    public JsonResult selectPathByRoleId(Long id){ return service.selectPathByRoleId(id);}
+    public JsonResult selectPathByRoleId(@RequestParam(value = "id")  Long id){ return service.selectPathByRoleId(id);}
 
     /**
     * 插入
@@ -92,7 +92,7 @@ public class AclPathRoleController {
     */
     @SysLog(client = ClientEnum.ADMIN,act = "根据主键删除对应的角色接口关系")
     @PostMapping(value = "/delete")
-    public JsonResult delete(@RequestParam Long id) {
+    public JsonResult delete(@RequestParam(value = "id")  Long id) {
         return service.deleteByKey(id);
     }
 

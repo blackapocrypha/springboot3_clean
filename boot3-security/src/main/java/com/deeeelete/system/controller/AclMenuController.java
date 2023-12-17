@@ -71,7 +71,7 @@ public class AclMenuController {
     */
     @PostMapping(value = "/delete")
     @SysLog(client = ClientEnum.ADMIN,act = "删除菜单")
-    public JsonResult delete(@RequestParam Long id) {
+    public JsonResult delete(@RequestParam(value = "id") Long id) {
         return service.deleteByKey(id);
     }
 

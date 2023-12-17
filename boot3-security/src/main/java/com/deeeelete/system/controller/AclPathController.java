@@ -70,7 +70,7 @@ public class AclPathController {
     */
     @PostMapping(value = "/delete")
     @SysLog(client = ClientEnum.ADMIN,act = "删除接口")
-    public JsonResult delete(@RequestParam Long id) {
+    public JsonResult delete(@RequestParam(value = "id")  Long id) {
         return service.deleteByKey(id);
     }
 

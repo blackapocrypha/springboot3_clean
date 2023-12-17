@@ -70,7 +70,7 @@ public class AclRoleController {
     */
     @SysLog(client = ClientEnum.ADMIN,act = "根据主键删除角色")
     @PostMapping(value = "/delete")
-    public JsonResult delete(@RequestParam Long id) {
+    public JsonResult delete(@RequestParam(value = "id")  Long id) {
         return service.deleteByKey(id);
     }
 

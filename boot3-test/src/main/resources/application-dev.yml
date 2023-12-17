@@ -7,7 +7,7 @@ spring:
   datasource:
     username: root
     password: root
-    url: jdbc:mysql://127.0.0.1:3306/boot3_security?useSSL=false&useUnicode=true&characterEncoding=utf8&useJDBCCompliantTimezoneShift=true&serverTimezone=UTC&allowMultiQueries=true
+    url: jdbc:mysql://127.0.0.1:3306/boot3_security?useSSL=false&useUnicode=true&characterEncoding=utf8&useJDBCCompliantTimezoneShift=true&serverTimezone=GMT%2B8&allowMultiQueries=true
     hikari:
       idle-timeout: 60000
       maximum-pool-size: 30

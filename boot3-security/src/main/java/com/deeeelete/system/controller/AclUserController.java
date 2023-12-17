@@ -93,7 +93,7 @@ public class AclUserController {
     */
     @PostMapping(value = "/delete")
     @SysLog(client = ClientEnum.ADMIN,act = "删除用户")
-    public JsonResult delete(@RequestParam Long id) {
+    public JsonResult delete(@RequestParam(value = "id")  Long id) {
         return service.deleteByKey(id);
     }
 
@@ -105,7 +105,7 @@ public class AclUserController {
      */
     @PostMapping(value = "/deleteBatch")
     @SysLog(client = ClientEnum.ADMIN,act = "批量删除用户")
-    public JsonResult deleteBatch(@RequestParam String ids) {
+    public JsonResult deleteBatch(@RequestParam(value = "ids")  String ids) {
         return service.deleteBatch(ids);
     }
 

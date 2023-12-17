@@ -84,7 +84,7 @@ public class ${table.controllerName} {
     * @return JsonResult
     */
     @PostMapping(value = "/delete")
-    public JsonResult delete(@RequestParam Long id) {
+    public JsonResult delete(@RequestParam(value = "id") Long id) {
         return service.deleteByKey(id);
     }
 

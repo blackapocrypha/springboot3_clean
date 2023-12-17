@@ -45,7 +45,7 @@ public class AclMenuRoleController {
      * @return JsonResult
      */
     @PostMapping(value = "/selectCurrentRoleMenu")
-    public JsonResult selectCurrentRoleMenu(Long id) {
+    public JsonResult selectCurrentRoleMenu(@RequestParam(value = "id") Long id) {
         return service.selectCurrentRoleMenu(id);
     }
 
@@ -83,7 +83,7 @@ public class AclMenuRoleController {
     */
     @PostMapping(value = "/delete")
     @SysLog(client = ClientEnum.ADMIN,act = "删除菜单角色对应关系")
-    public JsonResult delete(@RequestParam Long id) {
+    public JsonResult delete(@RequestParam(value = "id")  Long id) {
         return service.deleteByKey(id);
     }
 
