@@ -45,7 +45,7 @@ public class FileUploadController {
      */
     @PostMapping( "/upload")
     public Map uploadFile(@RequestParam(required = false, defaultValue = "other") String fileType,
-                          @RequestParam MultipartFile file,
+                          @RequestParam(value = "file") MultipartFile file,
                           HttpSession session
     ) {
         // 是否启用了minio
@@ -77,7 +77,7 @@ public class FileUploadController {
      * @return JsonResult
      */
     @PostMapping("/zip")
-    public JsonResult uploadZip(MultipartFile file) {
+    public JsonResult uploadZip(@RequestParam(value = "file") MultipartFile file) {
         JsonResult jsonResult = new JsonResult();
         UploadFileUtil up = new UploadFileUtil();
         try {
