@@ -42,8 +42,6 @@ public class TokenWebSecurityConfig   {
     @Autowired
     private JWTSecurityUtil jwtSecurityUtil;
 
-    @Value("${myConfig.filter-close:N}")
-    private String filterClosed;
     /**
      * 加密方式
      */
@@ -54,7 +52,7 @@ public class TokenWebSecurityConfig   {
 
     @Bean
     public JwtRequestFilter authenticationJwtTokenFilter() {
-        return new JwtRequestFilter(redisTemplate,jwtSecurityUtil,filterClosed);
+        return new JwtRequestFilter(redisTemplate,jwtSecurityUtil);
     }
 
     /**

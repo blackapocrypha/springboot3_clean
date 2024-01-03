@@ -55,4 +55,39 @@ public class ListUtil {
     }
 
 
+    /**
+     * 将字符串数组转为Long List
+     * @param split 字符串数组
+     * @return List<Long>
+     */
+    public static List<Long> parseToLongList(String[] split){
+        List<Long> classIdList = Arrays.stream(split)
+                .map(Long::parseLong)
+                .collect(Collectors.toList());
+        return classIdList;
+    }
+
+    /**
+     * 将字符串数组转为Integer List
+     * @param split 字符串数组
+     * @return List<Long>
+     */
+    public static List<Integer> parseToIntegerList(String[] split){
+        List<Integer> classIdList = Arrays.stream(split)
+                .map(Integer::parseInt)
+                .collect(Collectors.toList());
+        return classIdList;
+    }
+
+    /**
+     * 将List变成以逗号分割的字符串
+     * @param list 数组列表
+     * @return String
+     */
+    public static String makeListToString(List<?> list){
+        return list.stream().map(Object::toString).collect(Collectors.joining(","));
+    }
+
+
+
 }

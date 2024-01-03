@@ -58,7 +58,7 @@ task:
 
 myConfig:
   useMinio: N          #是否使用minio上传
-  filter-close: N      #关闭权限验证
+  default-png: default.png #用户默认填充头像名称
   file:
     frontUploadUrl: /tmp/    #上传路径
 # Minio配置

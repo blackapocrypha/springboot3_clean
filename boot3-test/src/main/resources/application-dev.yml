@@ -16,7 +16,7 @@ spring:
       connection-test-query: SELECT 1
   data:
     redis:
-      host: 127.0.0.1   #Redis服务器地址
+      host: 192.168.132.163 #Redis服务器地址
       port: 6379            #Redis端口
       password: 123456     #没有密码则无需配置
       database: 6           #Redis数据库索引（默认为0）
@@ -60,8 +60,7 @@ task:
 
 myConfig:
   useMinio: N          #是否使用minio上传  N是启用本地 Y是启用Minio
-  filter-close: N      #关闭权限验证
-  token: Wareer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1MzAyMDExOTc5MDEyNzMwOTMiLCJleHAiOjE2OTkwMjY3OTIsInVzZXIiOnsiaWQiOjEsInVzZXJBY2NvdW50IjoiYWRtaW4iLCJ1c2VyUmVhbG5hbWUiOiLnrqHnkIblkZgiLCJ1c2VyU2FsdCI6IjY4NTIwNTIzMTQ0ODcyNzQiLCJpbWciOiIvdXBsb2FkLzIwMjMtMDktMTEvaW1hZ2UvdmFjMDkyODE1Wm80OS5qcGciLCJ1c2VyR2VuZGVyIjoxLCJhdXRoIjpbInN1cGVyQWRtaW4iLCJub3JtYWxVc2VyIl0sInJvdXRlcyI6WyJTeXN0ZW0iLCJBY2xVc2VyIiwiQWNsUm9sZSIsIkFjbEludGVyZmFjZSIsIkFjbE1lbnUiXSwiYnV0dG9ucyI6WyJBY2xVc2VyLmFkZCIsIkFjbFVzZXIuZGVsZXRlIiwiQWNsVXNlci5tdXRpcGxlRGVsZXRlIl19LCJpYXQiOjE2OTgxOTkxMjcyMDQsImp0aSI6ImQ1MGVlZDgyLWE3NTktNDRhMS04Yzc5LWI4ZWJjYTViNGRjNyJ9.0DJ4SmqekrI-LUKoxjjTyZ1a-HBnvBm2cSh-i0VvysU
+  default-png: default.png #用户默认填充头像名称
   file:
     frontUploadUrl: D:\Environment\Nginx\nginx-1.15.2\html\    #上传路径
 

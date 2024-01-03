@@ -31,12 +31,10 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
     private JWTSecurityUtil jwtSecurityUtil;
 
-    private String filterClosed;
 
-    public JwtRequestFilter(RedisTemplate redisTemplate, JWTSecurityUtil jwtSecurityUtil, String filterClosed) {
+    public JwtRequestFilter(RedisTemplate redisTemplate, JWTSecurityUtil jwtSecurityUtil) {
         this.jwtSecurityUtil = jwtSecurityUtil;
         this.redisTemplate = redisTemplate;
-        this.filterClosed = filterClosed;
     }
 
 

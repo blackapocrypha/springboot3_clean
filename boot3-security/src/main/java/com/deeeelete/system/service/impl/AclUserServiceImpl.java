@@ -72,6 +72,12 @@ public class AclUserServiceImpl extends ServiceImpl<AclUserMapper, AclUser> impl
     @Value("${myConfig.file.frontUploadUrl}")
     private String webUrl;
 
+    /**
+     * 默认图片
+     */
+    @Value("${myConfig.default-png}")
+    private String default_png;
+
     @Autowired
     private AclMenuRoleMapper aclMenuRoleMapper;
 
@@ -226,7 +232,7 @@ public class AclUserServiceImpl extends ServiceImpl<AclUserMapper, AclUser> impl
         }
 
         if (StringUtil.isEmpty(record.getUserImage())) {
-            record.setUserImage("/default.png");
+            record.setUserImage("/"+default_png);
         }
         record.setSalt(MD5Util.getSalt());
         record.setPassword(MD5Util.getSaltMD5(record.getPassword(), record.getSalt()));
@@ -453,7 +459,7 @@ public class AclUserServiceImpl extends ServiceImpl<AclUserMapper, AclUser> impl
                         notInsertList.add(userExportDTO);
                         errorList.add(stringBuffer.toString());
                     } else {
-                        aclUser.setUserImage("/default.png");
+                        aclUser.setUserImage("/"+default_png);
                         // 追加到插入列表
                         insertList.add(aclUser);
                     }
