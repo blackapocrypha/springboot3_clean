@@ -1,6 +1,11 @@
 server:
   port: 8090
   max-http-request-header-size: 20000
+  tomcat:
+    remote-ip-header: x-forward-for
+    uri-encoding: UTF-8
+    max-threads: 1000
+    max-http-header-size: 8096
 
 spring:
   application:
@@ -23,10 +28,10 @@ spring:
       database: 6           #Redis数据库索引（默认为0）
       timeout: 1800000      #连接超时时间（毫秒）
       lettuce:
-        cluster:
-          refresj:
-            adaptive: true  #连接集群必填
-            period: 2000	  #连接集群必填
+#        cluster:
+#          refresj:
+#            adaptive: true  #连接集群必填
+#            period: 2000	  #连接集群必填
         pool:
           max-active: 20    #连接池最大连接数（使用负值表示没有限制）
           max-wait: -1      #最大阻塞等待时间(负数表示没限制)
