@@ -1,10 +1,16 @@
 package com.deeeelete.utils;
 
 
+import cn.hutool.core.date.DateField;
+import cn.hutool.core.date.DateTime;
+import cn.hutool.core.date.DateUtil;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 日期运算工具类
@@ -183,4 +189,35 @@ public class DateUtils {
         return day;
     }
 
+    /**
+     * 获取两个日期之间的月份，以整型数组的方式返回
+     * @param from 开始时间
+     * @param to   结束时间
+     * @return List<Integer>
+     */
+    public static List<Integer> getMothIntByFromTo(String from, String to) {
+        List<Integer> months = new ArrayList<>();
+        List<String> years = new ArrayList<>();
+
+        // 获取两个日期之间涉及到的年字符串
+        List<DateTime> dateTimes = DateUtil.rangeToList(DateUtil.parse(from), DateUtil.parse(to), DateField.YEAR);
+        for (DateTime dateTime : dateTimes) {
+            Date newDate = new Date(dateTime.getTime());
+            String formatted = DateUtil.format(newDate, "yyyy");
+            if (!years.contains(formatted)) {
+                years.add(formatted);
+            }
+        }
+
+        for (int i = 1; i <= 12; i++) {
+            for (String year : years) {
+                if (DateUtil.parse(year + "-" + i + "-01").isIn(DateUtil.parse(from),
+                        DateUtil.parse(to))) {
+                    months.add(i);
+                }
+            }
+        }
+
+        return months;
+    }
 }
