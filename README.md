@@ -77,7 +77,7 @@ docker run  -d -p 8090:8090   -e LANG=en_US.UTF-8  -e TZ="Asia/Shanghai"  -v /us
 
 #### 功能预览
 
-> 前端抄的尚硅谷尚品甄选  登录用户名：admin  密码：admin123
+> 前端抄的尚硅谷尚品甄选  登录用户名：admin  密码：123456
 
 | ![](./imgs/index1.png) | ![./imgs/index.png](./imgs/index2.png) |
 | ---------------------- | -------------------------------------- |

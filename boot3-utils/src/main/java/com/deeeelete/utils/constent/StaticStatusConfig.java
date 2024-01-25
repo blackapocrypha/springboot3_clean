@@ -11,4 +11,6 @@ public  class StaticStatusConfig {
     // token过期
     public static String TOKEN_EXPIRED = "50014";
 
+    // 白名单前缀Key
+    public static String whiteKey  = "whiteList::";
 }

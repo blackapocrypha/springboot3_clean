@@ -24,8 +24,8 @@
     <properties>
         <apache_poi_common.version>5.2.3</apache_poi_common.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <boot.version>3.2.1</boot.version>
-        <boot3.version>3.2.1</boot3.version>
+        <boot.version>3.2.2</boot.version>
+        <boot3.version>3.2.2</boot3.version>
         <cloud_alibaba.version>2022.0.0.0-RC1</cloud_alibaba.version>
         <common_io.version>2.13.0</common_io.version>
         <gson.version>2.8.5</gson.version>

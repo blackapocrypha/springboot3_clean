@@ -118,6 +118,17 @@ export const asyncRoute = [
           icon: 'Tickets',
           title: '日志管理',
         },
+      },
+      {
+        path: '/system/white',
+        name: 'White',
+        // @ts-ignore
+        component: () => import('@/views/system/white/index.vue'),
+        meta: {
+          hidden: false,
+          icon: 'SetUp',
+          title: '白名单管理',
+        },
       }
     ],
   },

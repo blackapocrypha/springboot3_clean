@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : 腾讯云12月到期
+ Source Server         : localhost
  Source Server Type    : MySQL
- Source Server Version : 50736
- Source Host           : 43.143.200.231:3306
+ Source Server Version : 50732
+ Source Host           : localhost:3306
  Source Schema         : boot3_security
 
  Target Server Type    : MySQL
- Target Server Version : 50736
+ Target Server Version : 50732
  File Encoding         : 65001
 
- Date: 10/11/2023 17:50:12
+ Date: 25/01/2024 16:07:24
 */
 
 SET NAMES utf8mb4;
@@ -34,7 +34,7 @@ CREATE TABLE `acl_menu`  (
   `gmt_modified` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   `level` int(11) NULL DEFAULT NULL COMMENT '层级',
   PRIMARY KEY (`acme_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 22 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '菜单' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 23 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '菜单' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of acl_menu
@@ -49,6 +49,7 @@ INSERT INTO `acl_menu` VALUES (7, '添加用户', 3, 'AclUser.add', 2, 1, '', NU
 INSERT INTO `acl_menu` VALUES (19, '删除用户', 3, 'AclUser.delete', 2, 2, NULL, NULL, '2023-06-26 17:48:21', '2023-06-26 17:48:21', 4);
 INSERT INTO `acl_menu` VALUES (20, '批量删除', 3, 'AclUser.mutipleDelete', 2, 3, NULL, NULL, '2023-07-25 15:40:58', '2023-07-25 15:40:58', 4);
 INSERT INTO `acl_menu` VALUES (21, '日志管理', 2, 'Logs', 1, 6, NULL, NULL, '2023-11-02 03:42:40', '2023-11-02 03:42:40', 3);
+INSERT INTO `acl_menu` VALUES (22, '白名单', 2, 'White', 1, 6, NULL, NULL, '2024-01-25 15:28:24', '2024-01-25 15:28:24', 3);
 
 -- ----------------------------
 -- Table structure for acl_menu_role
@@ -61,28 +62,22 @@ CREATE TABLE `acl_menu_role`  (
   `acmr_role_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '角色名',
   `acmr_role_code` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '角色代码',
   PRIMARY KEY (`acmr_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 148 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 133 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of acl_menu_role
 -- ----------------------------
-INSERT INTO `acl_menu_role` VALUES (131, 7, 2, '普通用户', 'normalUser');
-INSERT INTO `acl_menu_role` VALUES (132, 3, 2, '普通用户', 'normalUser');
-INSERT INTO `acl_menu_role` VALUES (133, 2, 2, '普通用户', 'normalUser');
-INSERT INTO `acl_menu_role` VALUES (134, 1, 2, '普通用户', 'normalUser');
-INSERT INTO `acl_menu_role` VALUES (135, 4, 2, '普通用户', 'normalUser');
-INSERT INTO `acl_menu_role` VALUES (136, 5, 2, '普通用户', 'normalUser');
-INSERT INTO `acl_menu_role` VALUES (137, 6, 2, '普通用户', 'normalUser');
-INSERT INTO `acl_menu_role` VALUES (138, 1, 1, '超级管理员', 'superAdmin');
-INSERT INTO `acl_menu_role` VALUES (139, 2, 1, '超级管理员', 'superAdmin');
-INSERT INTO `acl_menu_role` VALUES (140, 3, 1, '超级管理员', 'superAdmin');
-INSERT INTO `acl_menu_role` VALUES (141, 7, 1, '超级管理员', 'superAdmin');
-INSERT INTO `acl_menu_role` VALUES (142, 19, 1, '超级管理员', 'superAdmin');
-INSERT INTO `acl_menu_role` VALUES (143, 20, 1, '超级管理员', 'superAdmin');
-INSERT INTO `acl_menu_role` VALUES (144, 4, 1, '超级管理员', 'superAdmin');
-INSERT INTO `acl_menu_role` VALUES (145, 5, 1, '超级管理员', 'superAdmin');
-INSERT INTO `acl_menu_role` VALUES (146, 6, 1, '超级管理员', 'superAdmin');
-INSERT INTO `acl_menu_role` VALUES (147, 21, 1, '超级管理员', 'superAdmin');
+INSERT INTO `acl_menu_role` VALUES (122, 1, 1, '超级管理员', 'superAdmin');
+INSERT INTO `acl_menu_role` VALUES (123, 2, 1, '超级管理员', 'superAdmin');
+INSERT INTO `acl_menu_role` VALUES (124, 3, 1, '超级管理员', 'superAdmin');
+INSERT INTO `acl_menu_role` VALUES (125, 7, 1, '超级管理员', 'superAdmin');
+INSERT INTO `acl_menu_role` VALUES (126, 19, 1, '超级管理员', 'superAdmin');
+INSERT INTO `acl_menu_role` VALUES (127, 20, 1, '超级管理员', 'superAdmin');
+INSERT INTO `acl_menu_role` VALUES (128, 4, 1, '超级管理员', 'superAdmin');
+INSERT INTO `acl_menu_role` VALUES (129, 5, 1, '超级管理员', 'superAdmin');
+INSERT INTO `acl_menu_role` VALUES (130, 6, 1, '超级管理员', 'superAdmin');
+INSERT INTO `acl_menu_role` VALUES (131, 21, 1, '超级管理员', 'superAdmin');
+INSERT INTO `acl_menu_role` VALUES (132, 22, 1, '超级管理员', 'superAdmin');
 
 -- ----------------------------
 -- Table structure for acl_path
@@ -100,7 +95,7 @@ CREATE TABLE `acl_path`  (
   `gmt_create` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `gmt_modified` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`acpa_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 27 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 32 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of acl_path
@@ -108,6 +103,7 @@ CREATE TABLE `acl_path`  (
 INSERT INTO `acl_path` VALUES (1, '根目录', NULL, -1, 0, '根', 1, 0, '2023-05-30 10:32:42', '2023-05-30 10:32:44');
 INSERT INTO `acl_path` VALUES (2, '系统管理', NULL, 1, 0, NULL, 1, 0, '2023-07-27 11:16:13', '2023-07-27 11:16:15');
 INSERT INTO `acl_path` VALUES (3, '用户管理', '', 2, 0, NULL, 1, 0, '2023-07-27 11:16:16', '2023-07-27 11:16:18');
+INSERT INTO `acl_path` VALUES (4, '查询用户', '/system/acl-user/selectByExample', 3, 1, NULL, 1, 0, '2023-07-27 11:16:19', '2023-07-27 11:16:21');
 INSERT INTO `acl_path` VALUES (5, '删除用户', '/system/acl-user/delete', 3, 1, NULL, 2, 0, '2023-07-27 11:16:22', '2023-07-27 11:16:25');
 INSERT INTO `acl_path` VALUES (6, '添加用户', '/system/acl-user/insert', 3, 1, NULL, 3, 0, '2023-07-01 22:17:43', '2023-07-01 22:17:43');
 INSERT INTO `acl_path` VALUES (8, '菜单管理', '', 2, 0, NULL, 5, 0, '2023-07-01 22:26:58', '2023-07-01 22:26:58');
@@ -127,6 +123,11 @@ INSERT INTO `acl_path` VALUES (23, '配置接口', '/system/acl-path-role/update
 INSERT INTO `acl_path` VALUES (24, '配置菜单', '/system/acl-menu-role/update', 8, 1, NULL, 4, 0, '2023-09-18 09:18:06', '2023-09-18 09:18:06');
 INSERT INTO `acl_path` VALUES (25, '日志管理', '', 2, 0, NULL, 6, 0, '2023-10-25 03:06:33', '2023-10-25 03:06:33');
 INSERT INTO `acl_path` VALUES (26, '查询日志', '/system/sys-history-logs/selectByExample', 25, 1, NULL, 1, 0, '2023-10-25 03:07:04', '2023-10-25 03:07:04');
+INSERT INTO `acl_path` VALUES (27, '白名单', '', 2, 0, NULL, 10, 0, '2024-01-25 15:18:05', '2024-01-25 15:18:05');
+INSERT INTO `acl_path` VALUES (28, '查询白名单', '/system/acl-white-list/selectByExample', 27, 1, NULL, 1, 0, '2024-01-25 15:19:26', '2024-01-25 15:21:17');
+INSERT INTO `acl_path` VALUES (29, '更新白名单', '/system/acl-white-list/update', 27, 1, NULL, 2, 0, '2024-01-25 15:20:57', '2024-01-25 15:20:57');
+INSERT INTO `acl_path` VALUES (30, '添加白名单', '/system/acl-white-list/insert', 27, 1, NULL, 3, 0, '2024-01-25 15:21:51', '2024-01-25 15:21:51');
+INSERT INTO `acl_path` VALUES (31, '删除白名单', '/system/acl-white-list/delete', 27, 1, NULL, 4, 0, '2024-01-25 15:22:16', '2024-01-25 15:22:16');
 
 -- ----------------------------
 -- Table structure for acl_path_role
@@ -139,26 +140,31 @@ CREATE TABLE `acl_path_role`  (
   `acpr_role_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '角色名',
   `acpr_role_code` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '角色代码',
   PRIMARY KEY (`acpr_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 82 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 39 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of acl_path_role
 -- ----------------------------
-INSERT INTO `acl_path_role` VALUES (67, 5, 1, '超级管理员', 'superAdmin');
-INSERT INTO `acl_path_role` VALUES (68, 6, 1, '超级管理员', 'superAdmin');
-INSERT INTO `acl_path_role` VALUES (69, 14, 1, '超级管理员', 'superAdmin');
-INSERT INTO `acl_path_role` VALUES (70, 16, 1, '超级管理员', 'superAdmin');
-INSERT INTO `acl_path_role` VALUES (71, 17, 1, '超级管理员', 'superAdmin');
-INSERT INTO `acl_path_role` VALUES (72, 18, 1, '超级管理员', 'superAdmin');
-INSERT INTO `acl_path_role` VALUES (73, 20, 1, '超级管理员', 'superAdmin');
-INSERT INTO `acl_path_role` VALUES (74, 21, 1, '超级管理员', 'superAdmin');
-INSERT INTO `acl_path_role` VALUES (75, 22, 1, '超级管理员', 'superAdmin');
-INSERT INTO `acl_path_role` VALUES (76, 23, 1, '超级管理员', 'superAdmin');
-INSERT INTO `acl_path_role` VALUES (77, 11, 1, '超级管理员', 'superAdmin');
-INSERT INTO `acl_path_role` VALUES (78, 12, 1, '超级管理员', 'superAdmin');
-INSERT INTO `acl_path_role` VALUES (79, 24, 1, '超级管理员', 'superAdmin');
-INSERT INTO `acl_path_role` VALUES (80, 13, 1, '超级管理员', 'superAdmin');
-INSERT INTO `acl_path_role` VALUES (81, 26, 1, '超级管理员', 'superAdmin');
+INSERT INTO `acl_path_role` VALUES (19, 4, 1, '超级管理员', 'superAdmin');
+INSERT INTO `acl_path_role` VALUES (20, 5, 1, '超级管理员', 'superAdmin');
+INSERT INTO `acl_path_role` VALUES (21, 6, 1, '超级管理员', 'superAdmin');
+INSERT INTO `acl_path_role` VALUES (22, 14, 1, '超级管理员', 'superAdmin');
+INSERT INTO `acl_path_role` VALUES (23, 16, 1, '超级管理员', 'superAdmin');
+INSERT INTO `acl_path_role` VALUES (24, 17, 1, '超级管理员', 'superAdmin');
+INSERT INTO `acl_path_role` VALUES (25, 18, 1, '超级管理员', 'superAdmin');
+INSERT INTO `acl_path_role` VALUES (26, 20, 1, '超级管理员', 'superAdmin');
+INSERT INTO `acl_path_role` VALUES (27, 21, 1, '超级管理员', 'superAdmin');
+INSERT INTO `acl_path_role` VALUES (28, 22, 1, '超级管理员', 'superAdmin');
+INSERT INTO `acl_path_role` VALUES (29, 23, 1, '超级管理员', 'superAdmin');
+INSERT INTO `acl_path_role` VALUES (30, 11, 1, '超级管理员', 'superAdmin');
+INSERT INTO `acl_path_role` VALUES (31, 12, 1, '超级管理员', 'superAdmin');
+INSERT INTO `acl_path_role` VALUES (32, 24, 1, '超级管理员', 'superAdmin');
+INSERT INTO `acl_path_role` VALUES (33, 13, 1, '超级管理员', 'superAdmin');
+INSERT INTO `acl_path_role` VALUES (34, 26, 1, '超级管理员', 'superAdmin');
+INSERT INTO `acl_path_role` VALUES (35, 28, 1, '超级管理员', 'superAdmin');
+INSERT INTO `acl_path_role` VALUES (36, 29, 1, '超级管理员', 'superAdmin');
+INSERT INTO `acl_path_role` VALUES (37, 30, 1, '超级管理员', 'superAdmin');
+INSERT INTO `acl_path_role` VALUES (38, 31, 1, '超级管理员', 'superAdmin');
 
 -- ----------------------------
 -- Table structure for acl_role
@@ -173,7 +179,7 @@ CREATE TABLE `acl_role`  (
   `gmt_modified` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   `is_deleted` int(11) NULL DEFAULT 0 COMMENT '逻辑删除 0否 1是',
   PRIMARY KEY (`role_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '角色表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '角色表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of acl_role
@@ -201,18 +207,17 @@ CREATE TABLE `acl_user`  (
   `gmt_create` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `gmt_modified` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of acl_user
 -- ----------------------------
-INSERT INTO `acl_user` VALUES (1, 'admin', 'e6c08ad5832df0845082f831d1d148f43882b7962dc75c4f', '管理员', '管理员', '18173128326', '6852052314487274', '/upload/2023-09-11/image/vac092815Zo49.jpg', 1, 0, '2023-06-13 19:44:33', '2023-11-10 09:49:38');
-INSERT INTO `acl_user` VALUES (2, 'admin2', '08845824563b975f0ba7337c710284405a0645743ae0fb05', '夏平', '兵部尚书', '13626466174', '8543707718005300', '/upload/2023-09-11/image/dgq092824vFLQ.jpg', 1, 0, '2023-06-13 19:44:36', '2023-09-11 01:28:25');
-INSERT INTO `acl_user` VALUES (3, 'admin3', '96248395732e90f15d72f33f012d4da4348c37eb27978d41', '护盾', '123', '123123123', '6852052314487274', '/upload/2023-09-11/image/1_deeeelete_1569373353092854W748.png', 2, 0, '2023-06-14 08:51:32', '2023-09-18 09:15:07');
-INSERT INTO `acl_user` VALUES (4, 'kubernate', '329b71611a43b2dd02114d9978cc76283a12c9213c44f193', '江益冉', '杜添池', '19797861629', '2714201987819349', '/default.png', 2, 0, '2023-06-14 16:41:25', '2023-09-11 02:21:57');
-INSERT INTO `acl_user` VALUES (5, 'id123kdsai', '68966f96459898524861120a060116217a0a25da22c6695e', '雷泽惠', 'rui', '19382112640', '8669841061105265', '/upload/2023-08-23/image/img05253387H9.jpg', 2, 0, '2023-06-14 16:42:13', '2023-08-23 09:25:34');
-INSERT INTO `acl_user` VALUES (6, '伏地魔', '081d9676a11226395be37f40b93125f32d6ab5d258b4fa28', '马晶滢', '侯晶莹', '19559152213', '8961653492365542', '/upload/2023-06-14/image/Snipaste_2022-09-29_19-45-0104412452Kl.png', 2, 1, '2023-06-21 18:52:09', '2023-08-23 09:26:14');
-INSERT INTO `acl_user` VALUES (7, '445123788', '08a94a54d15153b59d829c9e276b46e16352b4f587140643', '万艳', 'sad', '14997321010', '8445392974154844', '/upload/2023-08-23/image/logo052504rW33.png', 1, 0, '2023-06-21 18:52:46', '2023-08-23 09:25:06');
+INSERT INTO `acl_user` VALUES (1, 'admin', '66d38d750f23802855c2db38414349f49185975b21e7cc4f', '管理员', '管理员', '18173128326', '6852052314487274', '/upload/2023-09-11/image/img0904491QQ8.jpg', 1, 0, '2023-06-13 19:44:33', '2023-09-11 09:04:49');
+INSERT INTO `acl_user` VALUES (2, 'admin2', '08845824563b975f0ba7337c710284405a0645743ae0fb05', '夏平', '兵部尚书', '13626466174', '8543707718005300', '/upload/2023-09-11/image/v2-7c6505eed9db133f0d85db3315335864_r090617d8QX.jpg', 1, 0, '2023-06-13 19:44:36', '2023-09-11 09:06:18');
+INSERT INTO `acl_user` VALUES (3, 'admin3', '68e22947f21a985167b7615273799a29b68a350a4d809571', '护盾', '123', '123123123', '8271867539985407', '/upload/2023-06-14/image/Snipaste_2022-09-29_19-42-56085030hj63.png', 2, 0, '2023-06-14 08:51:32', '2023-06-14 16:36:17');
+INSERT INTO `acl_user` VALUES (4, 'kubernate', '329b71611a43b2dd02114d9978cc76283a12c9213c44f193', '江益冉', '杜添池', '19797861629', '2714201987819349', '/upload/2023-06-14/image/Snipaste_2022-09-29_19-45-0104412452Kl.png', 2, 0, '2023-06-14 16:41:25', '2023-06-14 16:41:25');
+INSERT INTO `acl_user` VALUES (5, 'id123kdsai', '68966f96459898524861120a060116217a0a25da22c6695e', '雷泽惠', 'rui', '19382112640', '8669841061105265', '/upload/2023-06-14/image/Snipaste_2022-09-29_19-36-15044212RQ7T.png', 2, 0, '2023-06-14 16:42:13', '2023-06-14 16:42:13');
+INSERT INTO `acl_user` VALUES (7, '445123788', '08a94a54d15153b59d829c9e276b46e16352b4f587140643', '万艳', 'sad', '14997321010', '8445392974154844', '/upload/2023-06-14/image/Snipaste_2022-09-29_19-45-0104412452Kl.png', 1, 0, '2023-06-21 18:52:46', '2023-07-25 15:50:11');
 
 -- ----------------------------
 -- Table structure for acl_user_role
@@ -225,7 +230,7 @@ CREATE TABLE `acl_user_role`  (
   `gmt_create` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `gmt_modified` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`acur_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 17 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '角色用户绑定' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 17 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '角色用户绑定' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of acl_user_role
@@ -239,6 +244,27 @@ INSERT INTO `acl_user_role` VALUES (13, 6, 2, '2023-06-23 12:45:23', '2023-06-23
 INSERT INTO `acl_user_role` VALUES (14, 6, 4, '2023-06-23 12:45:23', '2023-06-23 12:45:23');
 INSERT INTO `acl_user_role` VALUES (15, 7, 4, '2023-06-23 12:58:45', '2023-06-23 12:58:45');
 INSERT INTO `acl_user_role` VALUES (16, 2, 2, '2023-07-01 19:16:27', '2023-07-01 19:16:27');
+
+-- ----------------------------
+-- Table structure for acl_white_list
+-- ----------------------------
+DROP TABLE IF EXISTS `acl_white_list`;
+CREATE TABLE `acl_white_list`  (
+  `acwl_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `acwl_path` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '接口地址',
+  `acwl_lock` int(11) NULL DEFAULT 0 COMMENT '强制锁(1不允许删除 0允许)',
+  PRIMARY KEY (`acwl_id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '白名单' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of acl_white_list
+-- ----------------------------
+INSERT INTO `acl_white_list` VALUES (1, '/system/acl-user/insert', 1);
+INSERT INTO `acl_white_list` VALUES (2, '/acl/login', 1);
+INSERT INTO `acl_white_list` VALUES (3, '/acl/logOut', 1);
+INSERT INTO `acl_white_list` VALUES (4, '/file/upload', 1);
+INSERT INTO `acl_white_list` VALUES (5, '/common/captchaImage', 1);
+INSERT INTO `acl_white_list` VALUES (6, '/system/acl-user/excelImport', 1);
 
 -- ----------------------------
 -- Table structure for sys_history_logs
@@ -257,16 +283,19 @@ CREATE TABLE `sys_history_logs`  (
   `gmt_modified` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   `slog_client` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '端源',
   PRIMARY KEY (`slog_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '系统日志' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '系统日志' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_history_logs
 -- ----------------------------
-INSERT INTO `sys_history_logs` VALUES (1, 1, '123.168.117.75', '新增接口', '/system/acl-path/insert', NULL, '{\"status\":\"20000\",\"success\":true}', 'admin', '2023-10-25 03:06:34', '2023-10-25 03:06:33', '后台管理端');
-INSERT INTO `sys_history_logs` VALUES (2, 1, '123.168.117.75', '新增接口', '/system/acl-path/insert', NULL, '{\"status\":\"20000\",\"success\":true}', 'admin', '2023-10-25 03:07:05', '2023-10-25 03:07:04', '后台管理端');
-INSERT INTO `sys_history_logs` VALUES (3, 1, '123.168.117.75', '根据角色更新对应的接口', '/system/acl-path-role/updatePathByRole', NULL, '{\"status\":\"20000\",\"success\":true}', 'admin', '2023-10-25 03:15:32', '2023-10-25 03:15:32', '后台管理端');
-INSERT INTO `sys_history_logs` VALUES (4, 1, '123.168.117.75', '插入菜单', '/system/acl-menu/insert', NULL, '{\"status\":\"20000\",\"success\":true}', 'admin', '2023-11-02 03:42:41', '2023-11-02 03:42:40', '后台管理端');
-INSERT INTO `sys_history_logs` VALUES (5, 1, '123.168.117.75', '修改菜单角色对应关系', '/system/acl-menu-role/update', NULL, '{\"status\":\"20000\",\"success\":true}', 'admin', '2023-11-02 08:55:53', '2023-11-02 06:59:12', '后台管理端');
-INSERT INTO `sys_history_logs` VALUES (6, 1, '123.168.93.150', '更新用户', '/system/acl-user/update', NULL, '{\"status\":\"20000\",\"success\":true}', 'admin', '2023-11-10 17:49:38', '2023-11-10 09:49:38', '后台管理端');
+INSERT INTO `sys_history_logs` VALUES (1, 1, '127.0.0.1', '新增接口', '/system/acl-path/insert', NULL, '{\"status\":\"20000\",\"success\":true}', 'admin', '2024-01-25 15:18:07', '2024-01-25 15:18:07', '后台管理端');
+INSERT INTO `sys_history_logs` VALUES (2, 1, '127.0.0.1', '新增接口', '/system/acl-path/insert', NULL, '{\"status\":\"20000\",\"success\":true}', 'admin', '2024-01-25 15:19:27', '2024-01-25 15:19:26', '后台管理端');
+INSERT INTO `sys_history_logs` VALUES (3, 1, '127.0.0.1', '新增接口', '/system/acl-path/insert', NULL, '{\"status\":\"20000\",\"success\":true}', 'admin', '2024-01-25 15:20:58', '2024-01-25 15:20:58', '后台管理端');
+INSERT INTO `sys_history_logs` VALUES (4, 1, '127.0.0.1', '更新接口', '/system/acl-path/update', NULL, '{\"status\":\"20000\",\"success\":true}', 'admin', '2024-01-25 15:21:18', '2024-01-25 15:21:18', '后台管理端');
+INSERT INTO `sys_history_logs` VALUES (5, 1, '127.0.0.1', '新增接口', '/system/acl-path/insert', NULL, '{\"status\":\"20000\",\"success\":true}', 'admin', '2024-01-25 15:21:52', '2024-01-25 15:21:51', '后台管理端');
+INSERT INTO `sys_history_logs` VALUES (6, 1, '127.0.0.1', '新增接口', '/system/acl-path/insert', NULL, '{\"status\":\"20000\",\"success\":true}', 'admin', '2024-01-25 15:22:17', '2024-01-25 15:22:16', '后台管理端');
+INSERT INTO `sys_history_logs` VALUES (7, 1, '127.0.0.1', '根据角色更新对应的接口', '/system/acl-path-role/updatePathByRole', NULL, '{\"status\":\"20000\",\"success\":true}', 'admin', '2024-01-25 15:22:51', '2024-01-25 15:22:50', '后台管理端');
+INSERT INTO `sys_history_logs` VALUES (8, 1, '127.0.0.1', '插入菜单', '/system/acl-menu/insert', NULL, '{\"status\":\"20000\",\"success\":true}', 'admin', '2024-01-25 15:28:25', '2024-01-25 15:28:25', '后台管理端');
+INSERT INTO `sys_history_logs` VALUES (9, 1, '127.0.0.1', '修改菜单角色对应关系', '/system/acl-menu-role/update', NULL, '{\"status\":\"20000\",\"success\":true}', 'admin', '2024-01-25 15:28:45', '2024-01-25 15:28:44', '后台管理端');
 
 SET FOREIGN_KEY_CHECKS = 1;

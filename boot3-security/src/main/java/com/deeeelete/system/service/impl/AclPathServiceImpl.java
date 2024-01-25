@@ -6,18 +6,21 @@ import com.deeeelete.system.entity.AclPath;
 import com.deeeelete.system.entity.AclPathRole;
 import com.deeeelete.system.entity.AclRole;
 
+import com.deeeelete.system.entity.AclWhiteList;
 import com.deeeelete.system.entity.enums.EnableEnum;
 import com.deeeelete.system.entity.enums.PathTypeEnum;
 import com.deeeelete.system.entity.query.AclPathQuery;
 import com.deeeelete.system.entity.dto.AclPathDTO;
 import com.deeeelete.system.mapper.AclPathMapper;
 import com.deeeelete.system.mapper.AclPathRoleMapper;
+import com.deeeelete.system.mapper.AclWhiteListMapper;
 import com.deeeelete.system.service.IAclPathRoleService;
 import com.deeeelete.system.service.IAclPathService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.deeeelete.system.service.IAclRoleService;
 import com.deeeelete.utils.EntityUtil;
 import com.deeeelete.utils.StringUtil;
+import com.deeeelete.utils.constent.StaticStatusConfig;
 import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -48,6 +51,9 @@ public class AclPathServiceImpl extends ServiceImpl<AclPathMapper, AclPath> impl
 
     @Resource
     private AclPathRoleMapper aclPathRoleMapper;
+
+    @Resource
+    private AclWhiteListMapper aclWhiteListMapper;
 
 
     @Value("${myConfig.token:N}")
@@ -251,6 +257,13 @@ public class AclPathServiceImpl extends ServiceImpl<AclPathMapper, AclPath> impl
             } else {
                 redisTemplate.opsForValue().set(aclPath.getAcpaPath(), JSON.toJSONString(powers));
             }
+        }
+
+        // 初始化白名单
+        String whiteKey  = StaticStatusConfig.whiteKey;
+        List<AclWhiteList> whiteLists = aclWhiteListMapper.selectList(null);
+        for (AclWhiteList whiteList : whiteLists) {
+            redisTemplate.opsForSet().add(whiteKey, whiteList.getAcwlPath());
         }
 
     }

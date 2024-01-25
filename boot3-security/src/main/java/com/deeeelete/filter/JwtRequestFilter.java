@@ -6,6 +6,7 @@ import com.deeeelete.utils.JWTUtil;
 import com.deeeelete.utils.JsonResult;
 import com.deeeelete.utils.ResponseUtil;
 import com.deeeelete.utils.StringUtil;
+import com.deeeelete.utils.constent.StaticStatusConfig;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -137,16 +138,8 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             return false;
         }
 
-        // 路径放过
-        List<String> whiteList = new ArrayList<>();
-        whiteList.add("/system/acl-user/insert");
-        whiteList.add("/acl/login");
-        whiteList.add("/acl/logOut");
-        whiteList.add("/file/upload");
-        whiteList.add("/common/captchaImage");
-        whiteList.add("/system/acl-user/excelImport");
-
-        if (whiteList.contains(url)) {
+        // 白名单路径放过，具体载入细节在AclPathServiceImpl的initPath方法中
+        if (redisTemplate.opsForSet().isMember(StaticStatusConfig.whiteKey,url)) {
             return true;
         }
 
