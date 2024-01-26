@@ -1,9 +1,8 @@
-package ${package.Entity}.query;
+package com.deeeelete.test.entity.query;
 
 import com.deeeelete.utils.StringUtil;
 import com.deeeelete.pojo.QueryParam;
-import ${package.Entity}.dto.${entity}DTO;
-import ${package.Entity}.${entity};
+import com.deeeelete.test.entity.Energy;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import lombok.Data;
@@ -12,26 +11,30 @@ import java.util.Date;
 
 /**
 * <p>
-    * ${table.comment!} 查询类
+    *  查询类
     * </p>
 *
-* @author ${author}
-* @since ${date}
+* @author bin.xie
+* @since 2024-01-26
 */
 @Data
-public class ${entity}Query extends QueryParam {
+public class EnergyQuery extends QueryParam {
 
 
-    private QueryWrapper<${entity}> query;
+    private QueryWrapper<Energy> query;
 
-    private UpdateWrapper<${entity}> update;
+    private UpdateWrapper<Energy> update;
 
     // likeParam
-<#list table.fields as field>
-    // ${field.comment}
-    private ${field.propertyType} ${field.propertyName};
+    // 主键
+    private Integer id;
 
-</#list>
+    // 名称
+    private String name;
+
+    // 年龄
+    private Integer age;
+
 
     /**
     * 开始时间
@@ -43,28 +46,32 @@ public class ${entity}Query extends QueryParam {
     */
     private Date endTime;
 
-    public QueryWrapper<${entity}> buildExample() {
+    public QueryWrapper<Energy> buildExample() {
         query = new QueryWrapper<>();
         update = new UpdateWrapper<>();
 
 
 
-    <#list table.fields as field>
 
 
-        <#if field.propertyType!?contains('String')>
-        if(StringUtil.isNotEmpty(get${field.propertyName?cap_first}())){
-            query.like("${field.name}",get${field.propertyName?cap_first}());
-            update.like("${field.name}",get${field.propertyName?cap_first}());
+        // 主键
+        if(StringUtil.isNotEmpty(getId())){
+        query.eq("id",getId());
+        update.eq("id",getId());
         }
-            <#else >
-        // ${field.comment}
-        if(StringUtil.isNotEmpty(get${field.propertyName?cap_first}())){
-        query.eq("${field.name}",get${field.propertyName?cap_first}());
-        update.eq("${field.name}",get${field.propertyName?cap_first}());
+
+
+        if(StringUtil.isNotEmpty(getName())){
+            query.like("name",getName());
+            update.like("name",getName());
         }
-        </#if>
-    </#list>
+
+
+        // 年龄
+        if(StringUtil.isNotEmpty(getAge())){
+        query.eq("age",getAge());
+        update.eq("age",getAge());
+        }
 
     //        // 开始时间
     //        if(StringUtil.isNotEmpty(getStartTime())){
@@ -94,7 +101,7 @@ public class ${entity}Query extends QueryParam {
 
 
     @Override
-    public QueryWrapper<${entity}> getQueryP() {
+    public QueryWrapper<Energy> getQueryP() {
         return query;
     }
 

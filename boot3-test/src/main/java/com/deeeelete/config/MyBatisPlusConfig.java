@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import java.util.Collections;
 
-@MapperScan({"com.deeeelete.admin.mapper","com.deeeelete.system.mapper"})
+@MapperScan({"com.deeeelete.admin.mapper","com.deeeelete.test.mapper","com.deeeelete.system.mapper"})
 @EnableTransactionManagement
 @Configuration
 public class MyBatisPlusConfig

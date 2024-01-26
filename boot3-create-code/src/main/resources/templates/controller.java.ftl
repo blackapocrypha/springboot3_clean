@@ -1,14 +1,10 @@
 package ${package.Controller};
 
-import ${package.Entity}.${entity};
+import ${package.Entity}.vo.${entity}VO;
 import ${package.Entity}.query.${entity}Query;
 import lombok.extern.slf4j.Slf4j;
 import ${package.Service}.${table.serviceName};
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import com.deeeelete.utils.JsonResult;
 import jakarta.annotation.Resource;
 <#if restControllerStyle>
@@ -50,8 +46,8 @@ public class ${table.controllerName} {
     *
     * @return JsonResult
     */
-    @PostMapping(value = "/selectByExample")
-    public JsonResult selectByExample(@ModelAttribute ${entity}Query query) {
+    @GetMapping(value = "/selectByExample")
+    public JsonResult selectByExample(${entity}Query query) {
         return service.selectAll(query);
     }
 
@@ -62,7 +58,7 @@ public class ${table.controllerName} {
     * @return JsonResult
     */
     @PostMapping(value = "/insert")
-    public JsonResult insert(@ModelAttribute ${entity} record) {
+    public JsonResult insert(@RequestBody ${entity}VO record) {
         return service.add(record);
     }
 
@@ -72,8 +68,8 @@ public class ${table.controllerName} {
     * @param record 修改信息
     * @return JsonResult
     */
-    @PostMapping(value = "/update")
-    public JsonResult update(@ModelAttribute ${entity} record) {
+    @PutMapping(value = "/update")
+    public JsonResult update(@RequestBody ${entity}VO record) {
         return service.updateByKey(record);
     }
 
@@ -83,7 +79,7 @@ public class ${table.controllerName} {
     * @param id 主键id
     * @return JsonResult
     */
-    @PostMapping(value = "/delete")
+    @DeleteMapping(value = "/delete")
     public JsonResult delete(@RequestParam(value = "id") Long id) {
         return service.deleteByKey(id);
     }

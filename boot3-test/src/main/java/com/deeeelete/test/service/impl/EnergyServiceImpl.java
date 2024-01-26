@@ -1,12 +1,12 @@
-package ${package.ServiceImpl};
+package com.deeeelete.test.service.impl;
 
-import ${package.Entity}.${entity};
-import ${package.Entity}.query.${entity}Query;
-import ${package.Entity}.dto.${entity}DTO;
-import ${package.Entity}.vo.${entity}VO;
-import ${package.Mapper}.${table.mapperName};
-import ${package.Service}.${table.serviceName};
-import ${superServiceImplClassPackage};
+import com.deeeelete.test.entity.Energy;
+import com.deeeelete.test.entity.query.EnergyQuery;
+import com.deeeelete.test.entity.dto.EnergyDTO;
+import com.deeeelete.test.entity.vo.EnergyVO;
+import com.deeeelete.test.mapper.EnergyMapper;
+import com.deeeelete.test.service.IEnergyService;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.deeeelete.utils.EntityUtil;
 import org.springframework.stereotype.Service;
 import com.deeeelete.utils.JsonResult;
@@ -16,31 +16,26 @@ import org.springframework.beans.BeanUtils;
 import java.util.List;
 
 /**
- * ${table.comment!} 服务实现类
+ *  服务实现类
  *
- * @author ${author}
- * @since ${date}
+ * @author bin.xie
+ * @since 2024-01-26
  */
 @Service
-<#if kotlin>
-open class ${table.serviceImplName} : ${superServiceImplClass}<${""}${table.mapperName}, ${entity}>(), ${table.serviceName} {
-
-}
-<#else>
-public class ${table.serviceImplName} extends ${superServiceImplClass}<${""}${table.mapperName}, ${entity}> implements ${table.serviceName} {
+public class EnergyServiceImpl extends ServiceImpl<EnergyMapper, Energy> implements IEnergyService {
 
     /**
-    * 分页查询${table.comment!}
+    * 分页查询
     *
     * @return JsonResult
     */
     @Override
-    public JsonResult selectAll(${entity}Query query) {
+    public JsonResult selectAll(EnergyQuery query) {
         JsonResult jsonResult = new JsonResult();
         query.buildExample();
         // 创建page类并查询，本语句已经查询完毕
-        Page<${entity}> page = query.buildPage(this);
-        List<${entity}DTO> records = EntityUtil.parentListToChildList(page.getRecords(), ${entity}DTO.class);
+        Page<Energy> page = query.buildPage(this);
+        List<EnergyDTO> records = EntityUtil.parentListToChildList(page.getRecords(), EnergyDTO.class);
         if(ListUtil.isNotEmpty(records)){
             jsonResult.buildTrue();
             jsonResult.setData(records);
@@ -52,7 +47,7 @@ public class ${table.serviceImplName} extends ${superServiceImplClass}<${""}${ta
     }
 
     /**
-     * 根据主键删除${table.comment!}
+     * 根据主键删除
      *
      * @param id 主键
      * @return JsonResult
@@ -69,15 +64,15 @@ public class ${table.serviceImplName} extends ${superServiceImplClass}<${""}${ta
     }
 
     /**
-     * 根据主键修改${table.comment!}
+     * 根据主键修改
      *
      * @param record 修改信息
      * @return JsonResult
     */
     @Override
-    public JsonResult updateByKey(${entity}VO record) {
+    public JsonResult updateByKey(EnergyVO record) {
         JsonResult jsonResult = new JsonResult();
-        ${entity} updateData = new ${entity}();
+        Energy updateData = new Energy();
         BeanUtils.copyProperties(record,updateData);
         if(updateById(updateData)){
             jsonResult.buildTrue();
@@ -88,15 +83,15 @@ public class ${table.serviceImplName} extends ${superServiceImplClass}<${""}${ta
     }
 
     /**
-     * 插入${table.comment!}
+     * 插入
      *
      * @param record 插入信息
      * @return JsonResult
     */
     @Override
-    public JsonResult add(${entity}VO record) {
+    public JsonResult add(EnergyVO record) {
         JsonResult jsonResult = new JsonResult();
-        ${entity} addData = new ${entity}();
+        Energy addData = new Energy();
         BeanUtils.copyProperties(record,addData);
         if(save(addData)){
             jsonResult.buildTrue();
@@ -108,4 +103,3 @@ public class ${table.serviceImplName} extends ${superServiceImplClass}<${""}${ta
 
 
 }
-</#if>

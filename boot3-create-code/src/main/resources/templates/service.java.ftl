@@ -1,6 +1,7 @@
 package ${package.Service};
 
 import ${package.Entity}.${entity};
+import ${package.Entity}.vo.${entity}VO;
 import ${package.Entity}.query.${entity}Query;
 import ${superServiceClassPackage};
 import com.deeeelete.utils.JsonResult;
@@ -39,7 +40,7 @@ public interface ${table.serviceName} extends ${superServiceClass}<${entity}> {
       * @param record 修改信息
       * @return JsonResult
       */
-      JsonResult updateByKey(${entity} record);
+      JsonResult updateByKey(${entity}VO record);
 
       /**
       * 插入${table.comment!}
@@ -47,7 +48,7 @@ public interface ${table.serviceName} extends ${superServiceClass}<${entity}> {
       * @param record 插入信息
       * @return JsonResult
       */
-      JsonResult add(${entity} record);
+      JsonResult add(${entity}VO record);
 
 
  }

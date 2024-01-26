@@ -29,6 +29,7 @@ public class AclMenuQuery extends QueryParam {
     private QueryWrapper<AclMenu> query;
     private UpdateWrapper<AclMenu> update;
 
+
     /**
     * 开始时间
     */

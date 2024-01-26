@@ -39,7 +39,7 @@ public class MyBatisPlusCodeGenerator {
     /**
      * 包模块名
      */
-    private static final String MODULE_NAME = "system";
+    private static final String MODULE_NAME = "test";
 
 
     /**
@@ -150,6 +150,14 @@ public class MyBatisPlusCodeGenerator {
                                     .fileName("DTO"+StringPool.DOT_JAVA)
                                     .templatePath("/templates/entityDTO.java.ftl")
                                     .packageName(PARENT_PACKAGE_NAME + "."+MODULE_NAME+".entity.dto")
+                                    .filePath(packagePath)
+                                    .build())
+
+                            .customFile(new CustomFile
+                                    .Builder()
+                                    .fileName("VO"+StringPool.DOT_JAVA)
+                                    .templatePath("/templates/entityVO.java.ftl")
+                                    .packageName(PARENT_PACKAGE_NAME + "."+MODULE_NAME+".entity.vo")
                                     .filePath(packagePath)
                                     .build())
                             .customFile(new CustomFile
