@@ -20,10 +20,6 @@ import java.util.Date;
 */
 @Data
 public class ${entity}Query extends QueryParam {
-    /**
-    * 原类
-    */
-    private ${entity}DTO param;
 
     private QueryWrapper<${entity}> query;
     private UpdateWrapper<${entity}> update;
@@ -37,6 +33,16 @@ public class ${entity}Query extends QueryParam {
     * 结束时间
     */
     private Date endTime;
+
+<#list table.fields as field>
+    <#if field.propertyType!?contains('String')>
+    // ${field.comment}
+    private String ${field.propertyName}IsLike;
+    <#else >
+    // ${field.comment}
+    private ${field.propertyType} ${field.propertyName};
+    </#if>
+</#list>
 
     // likeParam
 <#list table.fields as field>
@@ -54,17 +60,17 @@ public class ${entity}Query extends QueryParam {
         }
 
     <#list table.fields as field>
-
-        // ${field.comment}
-        if(StringUtil.isNotEmpty(getParam().get${field.propertyName?cap_first}())){
-            query.eq("${field.name}",getParam().get${field.propertyName?cap_first}());
-            update.eq("${field.name}",getParam().get${field.propertyName?cap_first}());
-        }
         <#if field.propertyType!?contains('String')>
-        if(StringUtil.isNotEmpty(get${field.propertyName?cap_first}IsLike())){
-            query.like("${field.name}",get${field.propertyName?cap_first}IsLike());
-            update.like("${field.name}",get${field.propertyName?cap_first}IsLike());
-        }
+            if(StringUtil.isNotEmpty(get${field.propertyName?cap_first}IsLike())){
+                query.like("${field.name}",get${field.propertyName?cap_first}IsLike());
+                update.like("${field.name}",get${field.propertyName?cap_first}IsLike());
+            }
+        <#else >
+            // ${field.comment}
+            if(StringUtil.isNotEmpty(get${field.propertyName?cap_first}())){
+                query.eq("${field.name}",get${field.propertyName?cap_first}());
+                update.eq("${field.name}",get${field.propertyName?cap_first}());
+            }
         </#if>
     </#list>
 
