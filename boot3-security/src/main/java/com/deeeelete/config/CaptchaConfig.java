@@ -2,8 +2,6 @@ package com.deeeelete.config;
 
 import java.util.Properties;
 
-import com.deeeelete.utils.JsonResult;
-import com.deeeelete.utils.StringUtil;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import com.google.code.kaptcha.impl.DefaultKaptcha;

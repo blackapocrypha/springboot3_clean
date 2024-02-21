@@ -157,7 +157,6 @@
             <artifactId>minio</artifactId>
         </dependency>
 
-        <!-- 以上是必要的依赖 -->
 
 
     </dependencies>

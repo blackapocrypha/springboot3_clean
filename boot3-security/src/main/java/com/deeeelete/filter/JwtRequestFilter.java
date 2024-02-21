@@ -18,8 +18,8 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * 自定义的JWT过滤器
@@ -82,7 +82,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             // 如果是永久的测试Key也放过,具体key在yml的 myConfig.token中配置
             String rootTestToken = (String) redisTemplate.opsForValue().get("foreverToken");
             if (!"N".equals(rootTestToken)) {
-                if (jwt != null && rootTestToken.equals(jwt)) {
+                if (Objects.nonNull(jwt) && rootTestToken.equals(jwt)) {
                     filterChain.doFilter(request, response);
                     return;
                 }
@@ -121,7 +121,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                 return;
             }
         } catch (Exception e) {
-            //log.error("无法设置用户认证:{}", e);
+            log.error("无法设置用户认证:{}", e);
         }
         filterChain.doFilter(request, response);
     }

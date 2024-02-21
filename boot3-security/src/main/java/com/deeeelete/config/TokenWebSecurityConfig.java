@@ -2,15 +2,12 @@ package com.deeeelete.config;
 
 
 import com.deeeelete.filter.JwtRequestFilter;
-import com.deeeelete.security.DefaultPasswordEncoder;
 import com.deeeelete.system.util.JWTSecurityUtil;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -31,6 +28,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
+@SuppressWarnings("all")
 public class TokenWebSecurityConfig   {
 
     @Autowired
@@ -42,13 +40,6 @@ public class TokenWebSecurityConfig   {
     @Autowired
     private JWTSecurityUtil jwtSecurityUtil;
 
-    /**
-     * 加密方式
-     */
-    @Bean
-    public DefaultPasswordEncoder bCryptPasswordEncoder() {
-        return new DefaultPasswordEncoder();
-    }
 
     @Bean
     public JwtRequestFilter authenticationJwtTokenFilter() {
