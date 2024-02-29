@@ -2,12 +2,7 @@
   <div>
     <el-card class="box-card">
       <!-- 卡片顶部添加按钮 -->
-      <el-button
-        type="primary"
-        size="default"
-        icon="Plus"
-        @click="addData"
-      >
+      <el-button type="primary" size="default" icon="Plus" @click="addData">
         添加
       </el-button>
       <!-- 表格组件：用于展示已有得平台数据 -->
@@ -25,10 +20,10 @@
           type="index"
         ></el-table-column>
         <!-- table-column:默认展示数据用div -->
-        <el-table-column label="接口地址"  prop="acwlPath"></el-table-column>
-       
+        <el-table-column label="接口地址" prop="acwlPath"></el-table-column>
+
         <el-table-column label="操作">
-          <template #="{ row}">    
+          <template #="{ row }">
             <el-button
               type="primary"
               size="small"
@@ -41,11 +36,15 @@
               :title="`您确定要删除?`"
               width="250px"
               icon="Delete"
-              
               @confirm="deleteCurrentData(row.acwlId)"
             >
               <template #reference>
-                <el-button type="danger" size="small" :disabled="row.acwlLock" icon="Delete">
+                <el-button
+                  type="danger"
+                  size="small"
+                  :disabled="row.acwlLock"
+                  icon="Delete"
+                >
                   删除
                 </el-button>
               </template>
@@ -95,7 +94,6 @@
             v-model="singneDataParams.acwlPath"
           ></el-input>
         </el-form-item>
-     
       </el-form>
       <!-- 具名插槽:footer -->
       <template #footer>
@@ -107,8 +105,6 @@
         </el-button>
       </template>
     </el-dialog>
-
- 
   </div>
 </template>
 
@@ -131,8 +127,7 @@ let total = ref<number>(0)
 //表单高度
 let formHeight = window.innerHeight * 0.61
 import type { jsonResult, singleId } from '@/api/common/type'
-/******  以上是通用导入部分  ******/
-
+/******  以上是通用部分  ******/
 
 import {
   selectWhite,
@@ -141,6 +136,7 @@ import {
   insertWhite,
 } from '@/api/white/index'
 import type { ACLWhiteList } from '@/api/white/type'
+
 //存储已有的数据
 // @ts-ignore
 let dataArr = ref<ACLWhiteList>([])
@@ -151,12 +147,10 @@ const loading = ref(true)
 //定义收集新增数据
 let singneDataParams = reactive<ACLWhiteList>({
   acwlId: null,
-  acwlPath: ''
+  acwlPath: '',
 })
 //获取el-form组件实例
 let formRef = ref()
-
-
 
 // 查询
 const getData = async (pager = 1) => {
@@ -180,8 +174,6 @@ const sizeChange = () => {
   //当前每一页的数据量发生变化的时候，当前页码归1
   getData()
 }
-
-
 
 // 更新
 const updateCurrentData = (row: ACLWhiteList) => {
@@ -266,7 +258,7 @@ const deleteCurrentData = async (id: number) => {
       type: 'success',
       message: '删除成功',
     })
-  
+
     getData()
   } else {
     ElMessage({
@@ -276,10 +268,6 @@ const deleteCurrentData = async (id: number) => {
   }
 }
 
-
-
-
-
 //组件挂载完毕钩子---发一次请求,获取第一页、一页三个已有数据
 onMounted(() => {
   getData()
@@ -287,7 +275,7 @@ onMounted(() => {
 
 //表单校验规则对象
 const rules = {
-  acwlPath: [{ required: true, trigger: 'blur', message: '接口地址不能为空' }]
+  acwlPath: [{ required: true, trigger: 'blur', message: '接口地址不能为空' }],
 }
 </script>
 

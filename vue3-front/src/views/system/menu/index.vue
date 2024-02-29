@@ -97,25 +97,26 @@
 </template>
 
 <script setup lang="ts">
-// 引入部分
 //@ts-ignore
 import { ElMessage } from 'element-plus'
 import { ref, onMounted, reactive } from 'vue'
-import type { AclMenu } from '@/api/menu/type'
 import { REQ_SUCCESS } from '@/utils/resultStatus'
 import type { jsonResult, singleId } from '@/api/common/type'
+// ********** 以上为通用部分 **********
+
+
+
 import {
   selectMenu,
   addMenu,
   updateCurrentMenu,
   deleteMenu,
 } from '@/api/menu/index'
-
+import type { AclMenu } from '@/api/menu/type'
 // 变量部分
 let menuArr = ref<Array<AclMenu>>([])
 // 对话框
 let dialogVisible = ref<boolean>(false)
-
 // 菜单信息
 //@ts-ignore
 let menuData = reactive<AclMenu>({
@@ -127,6 +128,8 @@ let menuData = reactive<AclMenu>({
   acmeType: 1,
   level: null
 })
+
+
 
 // 查询菜单数据
 const getMenus = async () => {

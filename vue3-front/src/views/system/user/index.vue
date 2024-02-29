@@ -69,7 +69,7 @@
     <!-- 表格组件：用于展示已有得平台数据 -->
     <el-table
       v-loading="loading"
-      style="margin: 10px 0px;width:100%"
+      style="margin: 10px 0px; width: 100%"
       border
       tooltip-effect="dark"
       :height="formHeight"
@@ -137,10 +137,10 @@
           {{ row.gmtCreate.substring(0, 10) }}
         </template>
       </el-table-column>
-      <el-table-column label="操作"  >
+      <el-table-column label="操作">
         <template #="{ row }">
           <el-button
-          style="margin-left:10px"
+            style="margin-left: 10px"
             type="success"
             size="small"
             icon="Coin"
@@ -300,7 +300,7 @@
       <el-upload
         style="display: inline-block; margin-left: 20px"
         class="upload-demo"
-         :show-file-list="false"
+        :show-file-list="false"
         :action="BASE_URL_PORT + '/system/acl-user/excelImport'"
         multiple
         :on-success="handleExceed"
@@ -369,16 +369,25 @@
 
 <script setup lang="ts">
 // @ts-ignore
-import { ElMessage,ElMessageBox,UploadProps }   from 'element-plus'
+import { ElMessage, ElMessageBox, UploadProps } from 'element-plus'
 import { formatGender, formatImage } from '@/utils/common'
 //引入组合式API函数ref
 import { ref, onMounted, reactive, nextTick } from 'vue'
-import type {
-  ACLUser
-} from '@/api/user/type'
-import type { ACLRole } from '@/api/role/type'
 import type { jsonResult, singleId } from '@/api/common/type'
 import { REQ_SUCCESS } from '@/utils/resultStatus'
+import { BASE_URL, BASE_URL_PORT } from '@/utils/common'
+//当前页码
+let pageNo = ref<number>(1)
+//每一页展示多少条数据
+let limit = ref<number>(20)
+//存储已有数据总数
+let total = ref<number>(0)
+//表单高度
+let formHeight = window.innerHeight * 0.52
+// ********** 以上为通用部分 **********
+
+import type { ACLUser } from '@/api/user/type'
+import type { ACLRole } from '@/api/role/type'
 import {
   selectUser,
   updateUser,
@@ -389,17 +398,9 @@ import {
 import { selectRole } from '@/api/role/index'
 import { insertUserRole } from '@/api/userRole/index'
 import { UserRole } from '@/api/userRole/type'
-import { BASE_URL,BASE_URL_PORT } from '@/utils/common'
+
 // 多选
 let multipleSelection = ref()
-//表单高度
-let formHeight = window.innerHeight * 0.52
-//当前页码
-let pageNo = ref<number>(1)
-//每一页展示多少条数据
-let limit = ref<number>(20)
-//存储已有数据总数
-let total = ref<number>(0)
 //存储已有的数据
 // @ts-ignore
 let userArr = ref<ACLUser>([])
@@ -437,7 +438,6 @@ let userParams = reactive<ACLUser>({
 })
 // 全部的角色信息
 let allRoles = ref<Array<ACLRole>>([])
-
 //获取el-form组件实例
 let formRef = ref()
 

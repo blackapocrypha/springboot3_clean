@@ -1,7 +1,7 @@
 <template>
-   <el-card>
+  <el-card>
     <div class="box">
-      <img :src="formatImage(userStore.avatar)" alt="" class="avatar">
+      <img :src="formatImage(userStore.avatar)" alt="" class="avatar" />
       <div class="bottom">
         <h3 class="title">{{ getTime() }}好，{{ userStore.realName }}</h3>
         <p class="subtitle">框架平台</p>
@@ -14,17 +14,15 @@
 </template>
 
 <script setup lang="ts">
-import { getTime } from '@/utils/time';
+import { getTime } from '@/utils/time'
 import { onMounted } from 'vue'
 //引入用户相关的小仓库
 import useUserStore from '@/store/modules/user'
-
-import {  formatImage } from '@/utils/common'
-
+import { formatImage } from '@/utils/common'
 let userStore = useUserStore()
-onMounted(() => {
+// ***** 以上为通用部分 *****
 
-})
+onMounted(() => {})
 </script>
 
 <style scoped lang="scss">
@@ -52,8 +50,9 @@ onMounted(() => {
     }
   }
 }
-.bottoms{
+.bottoms {
   margin-top: 60px;
   display: flex;
   justify-content: center;
-}</style>
+}
+</style>

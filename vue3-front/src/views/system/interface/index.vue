@@ -42,7 +42,7 @@
         >
           <template #reference>
             <el-button
-              type="danger" 
+              type="danger"
               size="small"
               :disabled="row.acpaPid == -1 ? true : false"
             >
@@ -98,10 +98,16 @@ import { ElMessage } from 'element-plus'
 import { ref, onMounted, reactive } from 'vue'
 import { REQ_SUCCESS } from '@/utils/resultStatus'
 import type { jsonResult, singleId } from '@/api/common/type'
+// ***** 以上为通用部分 ***** 
 
 // 类型
 import type { ACLPath } from '@/api/interface/type'
-import { selectInterface,addInterface,updateInterface,deleteInterface } from '@/api/interface/index'
+import {
+  selectInterface,
+  addInterface,
+  updateInterface,
+  deleteInterface,
+} from '@/api/interface/index'
 
 // 变量部分
 //@ts-ignore
@@ -116,7 +122,7 @@ let interfaceData = reactive<ACLPath>({
   acpaName: '',
   acpaPid: null,
   acpaSort: 1,
-  acpaType: 1
+  acpaType: 1,
 })
 
 // 查询接口数据
@@ -130,7 +136,7 @@ const getInterface = async () => {
   }
 }
 
-// 添加菜单获按钮
+// 添加菜单按钮
 const clickAddMenu = (menu: ACLPath) => {
   cleanInterfaceData()
   dialogVisible.value = true
@@ -149,31 +155,27 @@ const updateMenu = (menu: ACLPath) => {
   interfaceData.acpaType = menu.acpaType
 }
 
-
 // 删除节点
 const removeInterface = async (id: number) => {
-
-let data:singleId = {
-  id: id
+  let data: singleId = {
+    id: id,
+  }
+  let result: jsonResult | any = await deleteInterface(data)
+  if (result.status === REQ_SUCCESS) {
+    //弹出提示信息
+    ElMessage({
+      type: 'success',
+      message: '删除成功',
+    })
+  } else {
+    //添加角色失败
+    ElMessage({
+      type: 'error',
+      message: '删除失败',
+    })
+  }
+  getInterface()
 }
-let result: jsonResult | any = await deleteInterface(data)
-if (result.status === REQ_SUCCESS) {
-  //弹出提示信息
-  ElMessage({
-    type: 'success',
-    message: '删除成功',
-  })
-} else {
-  //添加角色失败
-  ElMessage({
-    type: 'error',
-    message: '删除失败',
-  })
-}
-getInterface()
-}
-
-
 
 // 添加/更新
 const confrim = async () => {
@@ -200,14 +202,14 @@ const confrim = async () => {
   getInterface()
 }
 
-const cleanInterfaceData = ()=>{
-    interfaceData.acpaId = null
-    interfaceData.acpaPath = ''
-    interfaceData.acpaName = ''
-    interfaceData.acpaPid = null
-    interfaceData.acpaSort = 1
-    interfaceData.acpaType = 1
-    interfaceData.acpaId = null
+const cleanInterfaceData = () => {
+  interfaceData.acpaId = null
+  interfaceData.acpaPath = ''
+  interfaceData.acpaName = ''
+  interfaceData.acpaPid = null
+  interfaceData.acpaSort = 1
+  interfaceData.acpaType = 1
+  interfaceData.acpaId = null
 }
 //组件挂载完毕钩子---发一次请求,获取第一页、一页三个已有角色数据
 onMounted(() => {

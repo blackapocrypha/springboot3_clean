@@ -195,6 +195,21 @@ import { ElMessage } from 'element-plus'
 import { ref, onMounted, reactive, nextTick } from 'vue'
 import type { ACLRole, rolePage, roleRequest } from '@/api/role/type'
 import type { jsonResult, singleId } from '@/api/common/type'
+import { REQ_SUCCESS } from '@/utils/resultStatus'
+//引入用户相关的小仓库
+import useUserStore from '@/store/modules/user'
+//@ts-ignore
+let userStore = useUserStore()
+//当前页码
+let pageNo = ref<number>(1)
+//每一页展示多少条数据
+let limit = ref<number>(20)
+//存储已有数据总数
+let total = ref<number>(0)
+//表单高度
+let formHeight = window.innerHeight * 0.7
+// ********** 以上为通用部分 **********
+
 import type { AclMenu } from '@/api/menu/type'
 import type { ACLPath } from '@/api/interface/type'
 import {
@@ -210,19 +225,8 @@ import {
 
 } from '@/api/menu/index'
 import { selectInterface, selectPathByRoleId,  updatePathByRole } from '@/api/interface/index'
-import { REQ_SUCCESS } from '@/utils/resultStatus'
-//引入用户相关的小仓库
-import useUserStore from '@/store/modules/user'
-//@ts-ignore
-let userStore = useUserStore()
-//当前页码
-let pageNo = ref<number>(1)
-//每一页展示多少条数据
-let limit = ref<number>(20)
-//存储已有数据总数
-let total = ref<number>(0)
-//表单高度
-let formHeight = window.innerHeight * 0.7
+
+
 //存储已有的数据
 // @ts-ignore
 let roleArr = ref<ACLRole>([])
@@ -257,6 +261,8 @@ let selectArr = ref<number[]>([])
 let formRef = ref()
 //获取tree组件实例
 let tree = ref<any>()
+
+
 //获取已有角色的接口封装为一个函数:在任何情况下向获取数据,调用次函数即可
 const getRoles = async (pager = 1) => {
   loading.value = true
@@ -284,44 +290,6 @@ const sizeChange = () => {
   getRoles()
 }
 
-// 树节点选中时变化
-// const treeCheck = (nodeObj: any, currentCheck: any, SelectedObj: any) => {
-//   // 节点被选中
-//   if (currentCheck) {
-//     currentMenuIdArr.push(nodeObj.acmeId)
-//     let childrenNode = menuNotTreeArr
-//       .filter((f) => f.acmePid === nodeObj.acmeId)
-//       .map((m: any) => m.acmeId)
-//     // 追加子的父级
-//     let parentNodeId: number[] = []
-//     findParentNode(nodeObj,parentNodeId)
-//     currentMenuIdArr = [...new Set([...currentMenuIdArr, ...childrenNode,...parentNodeId])]
-//   } else {
-//     // 移除
-//     let index = currentMenuIdArr.indexOf(nodeObj.acmeId)
-//     let childrenNode = menuNotTreeArr
-//       .filter((f:any) => f.acmePid === nodeObj.acmeId)
-//       .map((m: any) => m.acmeId)
-//     currentMenuIdArr.splice(index, 1)
-
-//     childrenNode.forEach((element:any) => {
-
-//       currentMenuIdArr.splice(currentMenuIdArr.indexOf(element), 1)
-//     })
-//   }
-// }
-
-// const findParentNode = (nodeObj: any, parentNodeId: any) => {
-//   let parentNode = menuNotTreeArr.filter((f:any) => f.acmeId === nodeObj.acmePid)
-//   if (parentNode.length > 0) {
-//     parentNode.forEach((element:any) => {
-//       if (element.acmePid !== 0) {
-//         parentNodeId.push(element.acmeId)
-//         findParentNode(element, parentNodeId)
-//       }
-//     })
-//   }
-// }
 
 //树形控件的测试数据
 const defaultProps = {
