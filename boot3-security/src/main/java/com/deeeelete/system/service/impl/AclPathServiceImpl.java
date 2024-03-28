@@ -56,9 +56,6 @@ public class AclPathServiceImpl extends ServiceImpl<AclPathMapper, AclPath> impl
     private AclWhiteListMapper aclWhiteListMapper;
 
 
-    @Value("${myConfig.token:N}")
-    private String token;
-
     /**
      * 分页查询
      *
@@ -229,9 +226,6 @@ public class AclPathServiceImpl extends ServiceImpl<AclPathMapper, AclPath> impl
      */
     @Override
     public void initPath() {
-        // 初始化永久token
-        redisTemplate.opsForValue().set("foreverToken",token);
-
         List<AclPath> aclPaths = list(new LambdaQueryWrapper<AclPath>().eq(AclPath::getAcpaType, 1));
         if (ListUtil.isEmpty(aclPaths)) {
             return;

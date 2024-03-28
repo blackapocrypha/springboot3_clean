@@ -79,15 +79,6 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         try {
             String jwt = parseJwt(request);
 
-            // 如果是永久的测试Key也放过,具体key在yml的 myConfig.token中配置
-            String rootTestToken = (String) redisTemplate.opsForValue().get("foreverToken");
-            if (!"N".equals(rootTestToken)) {
-                if (Objects.nonNull(jwt) && rootTestToken.equals(jwt)) {
-                    filterChain.doFilter(request, response);
-                    return;
-                }
-            }
-
             if (jwt != null && JWTUtil.Check(jwt).isSuccess()) {
                 // 获取用户拥有的权限
                 List<String> codes = JWTSecurityUtil.getUser(jwt).getAuth();
