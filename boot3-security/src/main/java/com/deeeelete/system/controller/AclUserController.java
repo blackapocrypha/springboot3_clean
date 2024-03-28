@@ -105,7 +105,7 @@ public class AclUserController {
      */
     @PostMapping(value = "/deleteBatch")
     @SysLog(client = ClientEnum.ADMIN,act = "批量删除用户")
-    public JsonResult deleteBatch(@RequestParam(value = "ids")  String ids) {
+    public JsonResult deleteBatch(@RequestParam(value = "ids") String ids) {
         return service.deleteBatch(ids);
     }
 
