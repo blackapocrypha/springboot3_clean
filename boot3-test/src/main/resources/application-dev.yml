@@ -22,9 +22,7 @@ spring:
   data:
     redis:
       host: 127.0.0.1 #Redis服务器地址
-#      host: 192.168.132.163
       port: 6379            #Redis端口
-      #password: 123456     #没有密码则无需配置
       password:
       database: 6           #Redis数据库索引（默认为0）
       timeout: 1800000      #连接超时时间（毫秒）
@@ -77,8 +75,3 @@ minio:
   accessKey: rootadmin
   secretKey: docker2023
   bucketName: picture
-
-
-applet:
-  appid: wx05a481228c48b9a0
-  secret: 14b7198f8e27848abff385684537de94
