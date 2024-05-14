@@ -1,23 +1,21 @@
 package com.deeeelete.system.service.impl;
 
 import cn.hutool.core.date.DateUtil;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.deeeelete.excel.entity.ErrorEntity;
+import cn.hutool.core.util.IdUtil;
+import com.alibaba.excel.EasyExcel;
+import com.alibaba.excel.support.ExcelTypeEnum;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.deeeelete.enums.RequestEnum;
-import com.deeeelete.excel.ExcelBoot;
-import com.deeeelete.excel.function.ExportFunction;
-import com.deeeelete.excel.function.ImportFunction;
 import com.deeeelete.pojo.JWTUser;
 import com.deeeelete.system.entity.AclRole;
 import com.deeeelete.system.entity.AclUser;
 import com.deeeelete.system.entity.AclUserRole;
 import com.deeeelete.system.entity.dto.AclUserExportDTO;
 import com.deeeelete.system.entity.dto.AclUserImportDTO;
-import com.deeeelete.system.entity.enums.GenderEnum;
 import com.deeeelete.system.entity.enums.MenuTypeEnum;
 import com.deeeelete.system.entity.query.AclUserQuery;
 import com.deeeelete.system.entity.dto.AclUserDTO;
+import com.deeeelete.system.listener.UserImportDataListener;
 import com.deeeelete.system.mapper.AclMenuRoleMapper;
 import com.deeeelete.system.mapper.AclRoleMapper;
 import com.deeeelete.system.mapper.AclUserMapper;
@@ -381,30 +379,31 @@ public class AclUserServiceImpl extends ServiceImpl<AclUserMapper, AclUser> impl
     }
 
 
+
     /**
-     * 导入用户
+     * 使用easyExcel导入用户
      *
      * @param file 文件
-     * @return JsonResult
+     * @return
      */
     @Override
     @Transactional
-    public JsonResult excelImport(MultipartFile file) {
+    public JsonResult easyExcelImport(MultipartFile file) {
         JsonResult jsonResult = new JsonResult();
 
+        // 声明文件路径及其文件名
         String webappPath = webUrl;
         String fileDir = "import" + File.separator + DateUtil.format(new Date(), "yyyy-MM-dd");
         String fileName = "userImport" + System.currentTimeMillis() + ".xlsx";
+        String errorKey = "Error::"+ IdUtil.randomUUID();
 
-        List<AclUserExportDTO> notInsertList = new ArrayList<>();
-        List<AclUser> insertList = new ArrayList<>();
-        ArrayList<String> errorList = new ArrayList<>();
-
-        File file1 = new File(webappPath + File.separator + fileDir);
-        if (!file1.exists()) {
-            file1.mkdirs();
+        // 创建路径
+        File filePathDir = new File(webappPath + File.separator + fileDir);
+        if (!filePathDir.exists()) {
+            filePathDir.mkdirs();
         }
 
+        // 创建文件
         String filePath = webappPath + File.separator + fileDir + File.separator + fileName;
         File fileExcel = null;
         try {
@@ -413,85 +412,37 @@ public class AclUserServiceImpl extends ServiceImpl<AclUserMapper, AclUser> impl
             jsonResult.buildFalse("文件创建失败，请重试！");
             return jsonResult;
         }
-        try {
 
-            ExcelBoot.ImportBuilder(new FileInputStream(fileExcel), AclUserImportDTO.class).importExcel(new ImportFunction<AclUserImportDTO>() {
-                @Override
-                public void onProcess(int sheetIndex, int rowIndex, AclUserImportDTO infoImportDTO) {
-                    StringBuffer stringBuffer = new StringBuffer();
+        // 写入数据
+        EasyExcel.read(filePath,
+                AclUserImportDTO.class, new UserImportDataListener(this,redisTemplate,errorKey))
+                .excelType(ExcelTypeEnum.XLSX)
+                .sheet().doRead();
 
-                    AclUser aclUser = new AclUser();
-                    BeanUtils.copyProperties(infoImportDTO, aclUser);
+        // 如果存在错误的数据
+        if(redisTemplate.opsForList().size(errorKey)>0){
+            // 生成导出Excel
+            String outputpath = "excel" + File.separator + DateUtil.format(new Date(), "yyyy-MM-dd");
+            String mypath = outputpath + File.separator + System.currentTimeMillis() + "_AclUserExport.xlsx";
+            String errorFileNamePath = webUrl + mypath;
+            File file1 = new File(webUrl + outputpath);
+            if (!file1.exists()) {
+                file1.mkdirs();
+            }
 
-                    // 名称
-                    if (StringUtil.isEmpty(infoImportDTO.getAccount())) {
-                        stringBuffer.append("第" + rowIndex + "行,账号不能为空！");
-                    } else {
-                        if (count(new LambdaQueryWrapper<AclUser>().eq(AclUser::getAccount, infoImportDTO.getAccount())) > 0) {
-                            stringBuffer.append("第" + rowIndex + "行,账号已存在！");
-                        }
-                    }
+            log.error("存在如下数据未正确读入");
+            List<AclUserExportDTO> range = redisTemplate.opsForList().range(errorKey, 0, -1);
+            range.forEach(System.out::println);
+            redisTemplate.delete(errorKey);
 
+            //对错误数据进行导出
+            EasyExcel.write(errorFileNamePath, AclUserExportDTO.class)
+                    .sheet("SHEET1")
+                    .doWrite(range);
 
-                    // 密码
-                    if (StringUtil.isEmpty(infoImportDTO.getPassword())) {
-                        stringBuffer.append("第" + rowIndex + "行,密码不能为空！");
-                    }
-                    if (StringUtil.isNotEmpty(infoImportDTO.getPassword()) && infoImportDTO.getPassword().length() < 6) {
-                        stringBuffer.append("第" + rowIndex + "行,密码不能低于6位！");
-                    }
-
-                    // 中文名称
-                    if (StringUtil.isEmpty(infoImportDTO.getRealName())) {
-                        stringBuffer.append("第" + rowIndex + "行,真实姓名不能为空！");
-                    }
-
-                    // 性别
-                    if (StringUtil.isNotEmpty(infoImportDTO.getGender())) {
-                        aclUser.setGender(GenderEnum.getEnumByMeaning(infoImportDTO.getGender()).getCode());
-                    }
-
-                    // 如果错误信息不为空说明有错误，追加到错误信息列表
-                    if (StringUtil.isNotEmpty(stringBuffer.toString())) {
-                        AclUserExportDTO userExportDTO = new AclUserExportDTO();
-                        BeanUtils.copyProperties(infoImportDTO, userExportDTO);
-                        userExportDTO.setTip(stringBuffer.toString());
-                        userExportDTO.setOldRow(rowIndex);
-                        notInsertList.add(userExportDTO);
-                        errorList.add(stringBuffer.toString());
-                    } else {
-                        aclUser.setUserImage("/"+default_png);
-                        // 追加到插入列表
-                        insertList.add(aclUser);
-                    }
-                }
-
-                @Override
-                public void onError(ErrorEntity errorEntity) {
-                    AclUserExportDTO importDTO = new AclUserExportDTO();
-                    importDTO.setTip("第" + errorEntity.getCellIndex() + "列导入失败，" + errorEntity.getErrorMessage() + "。解析错误，无法复制信息");
-                    importDTO.setOldRow(errorEntity.getRowIndex());
-                    notInsertList.add(importDTO);
-                }
-            });
-        } catch (FileNotFoundException e) {
-            jsonResult.buildFalse("Excel导入失败，请重试！");
-            e.printStackTrace();
-        }
-
-        // 插入
-        for (AclUser aclUser : insertList) {
-            // 加密
-            String salt = MD5Util.getSalt();
-            aclUser.setSalt(salt);
-            aclUser.setPassword(MD5Util.getSaltMD5(aclUser.getPassword(), salt));
-        }
-        saveBatch(insertList);
-
-        if (ListUtil.isNotEmpty(notInsertList)) {
-            // 导出
+            String fileDownLoadPath = File.separator + mypath;
             jsonResult.buildFalse("导入失败");
-            jsonResult.setData(exportNoInsertEntity(notInsertList));
+            jsonResult.setData(fileDownLoadPath.replaceAll(Pattern.quote("\\"), "/"));
             return jsonResult;
         }
 
@@ -499,53 +450,5 @@ public class AclUserServiceImpl extends ServiceImpl<AclUserMapper, AclUser> impl
         return jsonResult;
     }
 
-    /**
-     * 导出插入不成功的数据
-     *
-     * @param notInsertList 未插入列表
-     * @return String
-     */
-    public String exportNoInsertEntity(List<AclUserExportDTO> notInsertList) {
-        if (ListUtil.isNotEmpty(notInsertList)) {
-
-            String outputpath = "excel" + File.separator + DateUtil.format(new Date(), "yyyy-MM-dd");
-            String mypath = outputpath + File.separator + System.currentTimeMillis() + "_AclUserExport.xlsx";
-            String fileName = webUrl + mypath;
-            File file1 = new File(webUrl + outputpath);
-            if (!file1.exists()) {
-                file1.mkdirs();
-            }
-            FileOutputStream fileOutputStream = null;
-            try {
-                fileOutputStream = new FileOutputStream(new File(fileName));
-                ExcelBoot.ExportBuilder(fileOutputStream,
-                                "Sheet1", AclUserExportDTO.class)
-                        .exportStream(null, new ExportFunction<QueryWrapper, AclUserExportDTO>() {
-                            @Override
-                            public List<AclUserExportDTO> pageQuery(QueryWrapper queryWrapper, int i, int i1) {
-                                return notInsertList;
-                            }
-
-                            @Override
-                            public Object convert(AclUserExportDTO t) {
-                                return t;
-                            }
-                        });
-            } catch (Exception e) {
-                e.printStackTrace();
-            } finally {
-                if (fileOutputStream != null) {
-                    try {
-                        fileOutputStream.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-            String fileDownLoadPath = File.separator + mypath;
-            return fileDownLoadPath.replaceAll(Pattern.quote("\\"), "/");
-        }
-        return null;
-    }
 
 }

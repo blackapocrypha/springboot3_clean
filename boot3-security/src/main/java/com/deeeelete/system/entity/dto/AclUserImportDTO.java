@@ -1,7 +1,8 @@
 package com.deeeelete.system.entity.dto;
 
 
-import com.deeeelete.excel.annotation.ImportField;
+import com.alibaba.excel.annotation.ExcelProperty;
+import com.deeeelete.system.entity.convert.GenderConverter;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,37 +19,37 @@ public class AclUserImportDTO {
     /**
      * 账号
      */
-    @ImportField
+    @ExcelProperty(value = "账号")
     private String account;
 
     /**
      * 密码
      */
-    @ImportField
+    @ExcelProperty(value = "密码")
     private String password;
 
     /**
      * 姓名
      */
-    @ImportField
+    @ExcelProperty(value = "姓名")
     private String realName;
 
     /**
      * 昵称
      */
-    @ImportField
+    @ExcelProperty(value = "昵称")
     private String nickName;
 
     /**
      * 手机号
      */
-    @ImportField
+    @ExcelProperty(value = "手机号")
     private String phone;
 
 
     /**
      * 性别 0无 1男 2女
      */
-    @ImportField
-    private String gender;
+    @ExcelProperty(value = "性别",converter = GenderConverter.class)
+    private Integer gender;
 }

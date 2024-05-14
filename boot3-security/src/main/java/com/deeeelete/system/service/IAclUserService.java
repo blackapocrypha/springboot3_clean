@@ -64,10 +64,10 @@ public interface IAclUserService extends IService<AclUser> {
     JsonResult deleteBatch(String ids);
 
     /**
-     * 导入用户
+     * 使用easyExcel导入用户
      * @param file 文件
      * @return
      */
-    JsonResult excelImport(MultipartFile file);
+    JsonResult easyExcelImport(MultipartFile file);
 
  }

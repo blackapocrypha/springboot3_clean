@@ -42,12 +42,6 @@
             <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
 
-        <!-- excel导入 -->
-        <dependency>
-            <groupId>com.deeeelete</groupId>
-            <artifactId>boot3-excel-boot</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
 
         <!-- com.alibaba.fastjson2 -->
         <dependency>
@@ -91,7 +85,12 @@
         <dependency>
             <groupId>org.mapstruct</groupId>
             <artifactId>mapstruct</artifactId>
-            <version>1.5.5.Final</version>
+        </dependency>
+
+        <!-- easyexcel -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>easyexcel</artifactId>
         </dependency>
 
     </dependencies>

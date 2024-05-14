@@ -71,7 +71,7 @@ public class AclUserController {
      * @return JsonResult
      */
     @PostMapping(value = "/excelImport")
-    public JsonResult excelImport(@ModelAttribute MultipartFile file){ return service.excelImport(file);}
+    public JsonResult excelImport(@RequestParam(value = "file") MultipartFile file){ return service.easyExcelImport(file);}
 
     /**
     * 根据主键修改用户

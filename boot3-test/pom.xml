@@ -33,13 +33,6 @@
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
 
-        <!--引用Excel-Boot模块-->
-        <dependency>
-            <groupId>com.deeeelete</groupId>
-            <artifactId>boot3-excel-boot</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-
         <!-- 热部署工具 （仅开发使用） -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -157,7 +150,11 @@
             <artifactId>minio</artifactId>
         </dependency>
 
-
+        <!--junit-->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
 
     </dependencies>
 

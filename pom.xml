@@ -14,7 +14,6 @@
         <module>boot3-utils</module>
         <module>boot3-test</module>
         <module>boot3-create-code</module>
-        <module>boot3-excel-boot</module>
         <module>boot3-security</module>
     </modules>
 
@@ -24,10 +23,11 @@
     <properties>
         <apache_poi_common.version>5.2.3</apache_poi_common.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <boot.version>3.2.4</boot.version>
-        <boot3.version>3.2.4</boot3.version>
+        <boot.version>3.2.5</boot.version>
+        <boot3.version>3.2.5</boot3.version>
         <cloud_alibaba.version>2023.0.0.0-RC1</cloud_alibaba.version>
         <common_io.version>2.13.0</common_io.version>
+        <easyexcel.version>3.3.4</easyexcel.version>
         <gson.version>2.8.5</gson.version>
         <gateway.version>4.0.1</gateway.version>
         <hutool.version>5.8.22</hutool.version>
@@ -44,6 +44,7 @@
         <log4.version>1.2.17</log4.version>
         <fastjson2.version>2.0.23</fastjson2.version>
         <mysql.version>8.0.32</mysql.version>
+        <mapstruct.version>1.5.5.Final</mapstruct.version>
         <minio.version>8.5.2</minio.version>
         <mybatis.plus.version>3.5.5</mybatis.plus.version>
         <mybatis.version>3.0.3</mybatis.version>
@@ -52,7 +53,7 @@
         <okhttp.version>4.12.0</okhttp.version>
         <poi.version>4.1.2</poi.version>
         <qiniu.version>7.12.1</qiniu.version>
-        <redis.version>3.0.4</redis.version>
+        <redis.version>3.2.5</redis.version>
         <redis-pool.version>2.11.1</redis-pool.version>
         <slfj.version>2.0.9</slfj.version>
         <shiro.version>1.11.0</shiro.version>
@@ -133,6 +134,12 @@
                 <version>${junit.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>easyexcel</artifactId>
+                <version>${easyexcel.version}</version>
+            </dependency>
+
             <!--mybatisplus-->
             <dependency>
                 <groupId>com.baomidou</groupId>
@@ -198,6 +205,12 @@
                 <artifactId>mysql-connector-j</artifactId>
                 <scope>runtime</scope>
                 <version>${mysql.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct</artifactId>
+                <version>${mapstruct.version}</version>
             </dependency>
 
             <!--google.code.gson-->
