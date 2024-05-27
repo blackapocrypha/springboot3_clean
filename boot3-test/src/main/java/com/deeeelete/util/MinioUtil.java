@@ -37,8 +37,6 @@ public class MinioUtil {
     @Autowired
     private MinioConfig minioConfig;
 
-    @Autowired
-    private MinioClient minioClient;
 
     // 使用以下方法将log导入本类中
     private final Logger log = LoggerFactory.getLogger(this.getClass());
@@ -51,7 +49,7 @@ public class MinioUtil {
      * @return 图片地址-访问地址
      * @throws IOException
      */
-    public String uploadFile(MultipartFile file, Integer type) throws IOException {
+    public String uploadFile(MinioClient minioClient,MultipartFile file, Integer type) throws IOException {
         try {
             String fileName = null;
             if (0 == type) {
@@ -83,7 +81,7 @@ public class MinioUtil {
      * @param fileName
      * @return: org.springframework.http.ResponseEntity<byte [ ]>
      */
-    public ResponseEntity<byte[]> download(String fileName) {
+    public ResponseEntity<byte[]> download(MinioClient minioClient,String fileName) {
         ResponseEntity<byte[]> responseEntity = null;
         InputStream in = null;
         ByteArrayOutputStream out = null;
@@ -129,9 +127,9 @@ public class MinioUtil {
      *
      * @param objects 对象名称集合
      */
-    public void removeObjects(List<String> objects) {
+    public void removeObjects(MinioClient minioClient,List<String> objects) {
         for (String object : objects) {
-            removeObject(object);
+            removeObject(minioClient,object);
         }
         // minioClient.removeObjects(RemoveObjectsArgs.builder().bucket(minioConfig.getBucketName()).objects(dos).build());
     }
@@ -142,7 +140,7 @@ public class MinioUtil {
      * @param objectName 对象名称
      * @return boolean
      */
-    public boolean removeObject(String objectName) {
+    public boolean removeObject(MinioClient minioClient,String objectName) {
         try {
             minioClient.removeObject(RemoveObjectArgs.builder().bucket(minioConfig.getBucketName()).object(objectName).build());
             return true;
@@ -159,7 +157,7 @@ public class MinioUtil {
      * @param uri 地址
      * @return
      */
-    public List<Object> searchImgList(String uri, String type) {
+    public List<Object> searchImgList(MinioClient minioClient,String uri, String type) {
         List<Object> list = new ArrayList<>();
         if (uri == null || uri.trim().equals("")) {
             return list;

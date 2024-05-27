@@ -51,6 +51,7 @@
         <maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>
         <freemarker.version>2.3.31</freemarker.version>
         <okhttp.version>4.12.0</okhttp.version>
+        <okhttp-china.version>3.5.3</okhttp-china.version>
         <poi.version>4.1.2</poi.version>
         <qiniu.version>7.12.1</qiniu.version>
         <redis.version>3.2.5</redis.version>
@@ -226,6 +227,16 @@
                 <artifactId>okhttp</artifactId>
                 <scope>compile</scope>
                 <version>${okhttp.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.ejlchina</groupId>
+                <artifactId>okhttps</artifactId>
+                <version>${okhttp-china.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.ejlchina</groupId>
+                <artifactId>okhttps-gson</artifactId>
+                <version>${okhttp-china.version}</version>
             </dependency>
 
             <!--httpclient-->

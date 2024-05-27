@@ -265,6 +265,7 @@ INSERT INTO `acl_white_list` VALUES (3, '/acl/logOut', 1);
 INSERT INTO `acl_white_list` VALUES (4, '/file/upload', 1);
 INSERT INTO `acl_white_list` VALUES (5, '/common/captchaImage', 1);
 INSERT INTO `acl_white_list` VALUES (6, '/system/acl-user/excelImport', 1);
+INSERT INTO `acl_white_list` VALUES (7, '/socket/*', 0);
 
 -- ----------------------------
 -- Table structure for sys_history_logs

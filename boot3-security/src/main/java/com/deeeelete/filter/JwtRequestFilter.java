@@ -20,6 +20,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * 自定义的JWT过滤器
@@ -130,9 +131,27 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         }
 
         // 白名单路径放过，具体载入细节在AclPathServiceImpl的initPath方法中
-        if (redisTemplate.opsForSet().isMember(StaticStatusConfig.whiteKey,url)) {
-            return true;
+//        如果没有/*的通用路过则使用这个方法
+//        if (redisTemplate.opsForSet().isMember(StaticStatusConfig.whiteKey,url)) {
+//            return true;
+//        }
+        Set members = redisTemplate.opsForSet().members(StaticStatusConfig.whiteKey);
+        for (Object member : members) {
+            String whiteUrl = member.toString();
+            // 如果是斜线*代表放过全部
+            if(whiteUrl.endsWith("/*")){
+                whiteUrl = whiteUrl.replace("/*","");
+                if(url.startsWith(whiteUrl)){
+                    return true;
+                }
+            }else{
+                // 没有/*就是单独校验匹配
+                if(url.trim().equals(whiteUrl.trim())){
+                    return true;
+                }
+            }
         }
+
 
         return false;
     }

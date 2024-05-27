@@ -156,6 +156,20 @@
             <artifactId>junit</artifactId>
         </dependency>
 
+        <!-- socket模块必要依赖 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-websocket</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.ejlchina</groupId>
+            <artifactId>okhttps</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.ejlchina</groupId>
+            <artifactId>okhttps-gson</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>

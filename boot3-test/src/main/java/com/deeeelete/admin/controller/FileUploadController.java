@@ -5,6 +5,7 @@ import com.deeeelete.system.entity.enums.EnableEnum;
 import com.deeeelete.util.MinioUtil;
 import com.deeeelete.utils.JsonResult;
 import com.deeeelete.utils.UploadFileUtil;
+import io.minio.MinioClient;
 import jakarta.servlet.http.HttpSession;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,12 @@ public class FileUploadController {
     @Autowired
     private MinioUtil minioUtil;
 
+//    /**
+//     * 只有在启用minio后才注入
+//     */
+//    @Autowired
+//    private MinioClient minioClient;
+
     /**
      * 上传图片
      *
@@ -51,16 +58,16 @@ public class FileUploadController {
         // 是否启用了minio
         if(EnableEnum.STATUS_PROCESS.getCode().equals(useMinio)){
             Map<Object, Object> map = new HashMap<>();
-            try {
-                // type 0随机生成图片名(新增)&1保留原文件名(覆盖原图)
-                String filename = minioUtil.uploadFile(file,0);
-                map.put("status",JsonResult.STATUS_SUCCESS);
-                map.put("file",filename);
-            } catch (IOException e) {
-                map.put("status",JsonResult.STATUS_ERROR);
-                map.put("message",e.getMessage());
-                throw new RuntimeException(e);
-            }
+//            try {
+//                // type 0随机生成图片名(新增)&1保留原文件名(覆盖原图)
+//                String filename = minioUtil.uploadFile(minioClient,file,0);
+//                map.put("status",JsonResult.STATUS_SUCCESS);
+//                map.put("file",filename);
+//            } catch (IOException e) {
+//                map.put("status",JsonResult.STATUS_ERROR);
+//                map.put("message",e.getMessage());
+//                throw new RuntimeException(e);
+//            }
             return map;
         }else{
             UploadFileUtil up = new UploadFileUtil();
