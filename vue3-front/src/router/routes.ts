@@ -109,10 +109,10 @@ export const asyncRoute = [
         },
       },
       {
-        path: '/system/logs',
+        path: '/system/systemLogs',
         name: 'Logs',
         // @ts-ignore
-        component: () => import('@/views/system/logs/index.vue'),
+        component: () => import('@/views/system/systemLogs/index.vue'),
         meta: {
           hidden: false,
           icon: 'Tickets',
