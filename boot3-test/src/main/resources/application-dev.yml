@@ -69,7 +69,7 @@ myConfig:
   file:
     frontUploadUrl: D:\Environment\Nginx\nginx-1.15.2\html\    #上传路径
 
-# Minio配置
+# Minio配置,默认不使用
 minio:
   url: http://192.168.132.163:9000
   accessKey: rootadmin
