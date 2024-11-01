@@ -73,6 +73,32 @@ myConfig:
 docker run  -d -p 8090:8090   -e LANG=en_US.UTF-8  -e TZ="Asia/Shanghai"  -v /usr/local/nginx/html:/tmp boot3.jar:1.1
 ```
 
+##### 4 脚本部署
+```shell
+#! /bin/bash  
+analysisor=xxx
+program_name=boot3-admin
+JAVA_OPTS="-Duser.timezone=GMT+8 -server -Xms256m -Xmx512m -Dlog4j2.formatMsgNoLookups=true"  
+JAVA_OPTS="$JAVA_OPTS $@"  
+
+nohup $JAVA_HOME/bin/java $JAVA_OPTS -jar  /usr/local/soft/boot3-admin.jar > ./boot-admin.log 2>&1 &
+pid=$!  
+exit_code=$?  
+echo $pid > boot3-admin-pid  
+  
+echo "pid: $pid"  
+  
+if [ $exit_code -eq 0 ];  
+then
+    echo "execute $program_name successfully!"
+    echo "start real-time reading of $program_name logs"
+    echo "ctrl + c exit"    
+    tail -f boot3-admin.log
+else  
+    echo "execute $program_name failed!"      
+fi
+```
+
 <br/><br/>
 
 #### 功能预览
