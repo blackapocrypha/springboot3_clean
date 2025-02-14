@@ -23,7 +23,7 @@ public class ${entity}Query extends QueryParam {
 
     private QueryWrapper<${entity}> query;
     private UpdateWrapper<${entity}> update;
-
+    private ${entity}DTO param;
     /**
     * 开始时间
     */
@@ -36,8 +36,6 @@ public class ${entity}Query extends QueryParam {
 
 <#list table.fields as field>
     <#if field.propertyType!?contains('String')>
-    // ${field.comment}
-    private String ${field.propertyName}IsLike;
     <#else >
     // ${field.comment}
     private ${field.propertyType} ${field.propertyName};
